@@ -6,6 +6,7 @@ export const Menu = () => {
     return (
         <div>
             Menu
+            {/* hello */}
         </div>
     );
 }
