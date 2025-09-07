@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 body {
     background-image: url('./public/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: repeat;
+    background-size: contain;
     background-attachment: fixed;
     background-position: center;
 }
