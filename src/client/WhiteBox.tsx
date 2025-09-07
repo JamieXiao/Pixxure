@@ -1,13 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { WhiteBox } from "./WhiteBox";
 
-export const Menu = () => {
+export const WhiteBox = () => {
     return (
         <div>
-            <h1>Menu</h1>
-            <WhiteBox/>
+            Box! 
         </div>
     );
 }

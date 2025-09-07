@@ -6,3 +6,11 @@ body {
     background-attachment: fixed;
     background-position: center;
 }
+
+h1 {
+    font-family: 'Jersey 10', sans-serif;
+    color: white; 
+    -webkit-text-stroke: 1.5px black; 
+    font-size: 10em;
+    text-align: center;
+}
