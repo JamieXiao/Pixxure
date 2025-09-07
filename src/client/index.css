@@ -1,8 +1,28 @@
 @import 'tailwindcss';
+
 body {
     background-image: url('./public/background.png');
     background-repeat: repeat;
     background-size: contain;
     background-attachment: fixed;
-    background-position: center;
+    background-position: center;   
+}
+
+div#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+h1 {
+    font-family: 'Jersey 10', sans-serif;
+    color: white; 
+    -webkit-text-stroke: 0.02em black; 
+    font-size: 10em;
+    text-align: center;
+}
+
+.nes-container.is-rounded {
+    background-color: white;
+    width: 40rem;
 }
