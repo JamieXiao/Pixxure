@@ -24,9 +24,11 @@ h1 {
 
 .nes-container.is-rounded {
     background-color: white;
-    width: 50vw;
     height: 85vh;
 
+    aspect-ratio: 0.8/1;
+
+    /* width: 50vw;
     min-width: 400px;
-    max-width: 600px;
+    max-width: 600px; */
 }
