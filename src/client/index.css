@@ -17,8 +17,8 @@ div#root {
 h1 {
     font-family: 'Jersey 10', sans-serif;
     color: white; 
-    -webkit-text-stroke: 0.02em black; 
-    font-size: 10em;
+    -webkit-text-stroke: 0.03em black; 
+    font-size: 9em;
     text-align: center;
 }
 
@@ -31,4 +31,33 @@ h1 {
     /* width: 50vw;
     min-width: 400px;
     max-width: 600px; */
+
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;  
+    flex-direction: column;
+}
+
+.nes-btn {
+    font-family: 'Jersey 10', sans-serif;
+    font-size: 3em;
+    width: 30vw;
+}
+
+.nes-btn.blue-btn {
+    color: white;
+    background-color: #5A8096;
+    box-shadow: aqua;
+}
+
+.nes-btn.white-btn {
+    color: #5A8096;
+    background-color: white;
+    border-color: #5A8096;
+}
+
+#menu-hearts {
+    margin-top: -7vh;
+    padding-bottom: 4vh;
+    width: 70%;
 }
