@@ -13,11 +13,11 @@ export const Menu = () => {
             <h1>Pixxure</h1>
             <img src="public/hearts.png" alt="hearts" id="menu-hearts"></img>
             <Link to="/game">
-                <Button colorClass="blue-btn menu-button">Play</Button>
+                <Button colorClass="blue-btn menu-btn">PLAY</Button>
             </Link>
             <div style={{ padding: "5%" }}></div>
             <Link to="/instructions">
-                <Button colorClass="white-btn menu-button">Info</Button>
+                <Button colorClass="white-btn menu-btn">INFO</Button>
             </Link>
         </div>
     );
