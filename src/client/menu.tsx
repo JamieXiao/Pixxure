@@ -10,11 +10,14 @@ import "nes.css/css/nes.min.css";
 export const Menu = () => {
     return (
         <div className="nes-container is-rounded">
-            <h1>Menu</h1>
+            <h1>Pixxure</h1>
+            <img src="public/hearts.png" alt="hearts" id="menu-hearts"></img>
             <Link to="/game">
-                <Button colorClass="blue-btn">Play A</Button>
-
-                <button type="button" className="nes-btn">Play</button>
+                <Button colorClass="blue-btn">Play</Button>
+            </Link>
+            <div style={{ padding: "3vh" }}></div>
+            <Link to="/instructions">
+                <Button colorClass="white-btn">Info</Button>
             </Link>
         </div>
     );
