@@ -32,3 +32,20 @@ h1 {
     min-width: 400px;
     max-width: 600px; */
 }
+
+.nes-btn {
+    font-family: 'Jersey 10', sans-serif;
+    font-size: 2em;
+}
+
+.nes-btn.blue-btn {
+    color: white;
+    background-color: #5A8096;
+    box-shadow: aqua;
+}
+
+.nes-btn.white-btn {
+    color: #5A8096;
+    background-color: white;
+    border-color: #5A8096;
+}

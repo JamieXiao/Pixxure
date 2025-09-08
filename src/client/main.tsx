@@ -7,6 +7,6 @@ import { Menu } from './menu';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Menu />
+    <App />
   </StrictMode>
 );
