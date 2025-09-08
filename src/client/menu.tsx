@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
+import { RedisTestBtn } from "./components/redisTestBtn";
 import "nes.css/css/nes.min.css";
 
 
@@ -15,6 +15,7 @@ export const Menu = () => {
 
         <div className="nes-container is-rounded">
             <h1>Menu</h1>
+            <RedisTestBtn />
         </div>
     );
 }
