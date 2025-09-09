@@ -31,3 +31,5 @@ A starter to build web applications on Reddit's developer platform
 This template comes with a pre-configured cursor environment. To get started, [download cursor](https://www.cursor.com/downloads) and enable the `devvit-mcp` when prompted.
 
 npm install -g devvit@latest
+
+Quick note: all the endpoints are in server/index.ts

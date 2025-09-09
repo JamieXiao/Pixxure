@@ -124,6 +124,266 @@ router.post('/internal/menu/post-create', async (_req, res): Promise<void> => {
   }
 });
 
+// win endpoint
+app.post('/api/win', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.wins = (parsedStats.wins || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// play endpoint
+app.post('/api/play', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const date = new Date().toISOString().split('T')[0]; // get current date in YYYY-MM-DD format
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.plays = (parsedStats.plays || 0) + 1; // increment plays by 1
+  } else {
+    parsedStats = { wins: 0, plays: 1, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: date };
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// win5 endpoint
+app.post('/api/win5', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.win5 = (parsedStats.win5 || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// win4 endpoint
+app.post('/api/win4', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.win4 = (parsedStats.win4 || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// win3 endpoint
+app.post('/api/win3', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.win3 = (parsedStats.win3 || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// win2 endpoint
+app.post('/api/win2', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.win2 = (parsedStats.win2 || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// win1 endpoint
+app.post('/api/win1', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    parsedStats.win1 = (parsedStats.win1 || 0) + 1; // increment plays by 1
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// streak endpoint
+app.post('/api/streak', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    const lastDate = new Date(parsedStats.lastPlayed);
+    const currentDate = new Date();
+    const diffTime = currentDate.getTime() - lastDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      // if last played was yesterday, increment streak
+      parsedStats.streak = (parsedStats.streak || 0) + 1;
+    } else if (diffDays > 1) {
+      // if last played was more than a day ago, reset streak
+      parsedStats.streak = 1;
+    } else {
+      // if last played is not today (shouldn't happen), reset streak
+      parsedStats.streak = 1;
+    }
+    parsedStats.lastPlayed = currentDate.toISOString().split('T')[0]; // update last played date
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
+// maxStreak endpoint
+app.post('/api/maxStreak', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+
+    // if current streak is greater than maxStreak, update maxStreak
+    if (parsedStats.streak > (parsedStats.maxStreak || 0)) { 
+      parsedStats.maxStreak = parsedStats.streak;
+    }
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+});
+
 // Use router middleware
 app.use(router);
 
