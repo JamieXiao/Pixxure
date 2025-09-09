@@ -21,12 +21,12 @@ export const Menu: React.FC<Props> = ({ route }) => {
             {/* <Link to="/game">
                 <Button colorClass="blue-btn menu-button">Play</Button>
             </Link> */}
-            <Button colorClass="blue-btn menu-button" onClick={() => route("game")}>Play</Button>
-            <div style={{ padding: "5%" }}></div>
+            <Button colorClass="blue-btn menu-button" onClick={() => route("game")}>PLAY</Button>
             {/* <Link to="/instructions">
                 <Button colorClass="white-btn menu-button">Info</Button>
             </Link> */}
-                <Button colorClass="white-btn menu-button" onClick={() => route("instructions")}>Info</Button>
+            <Button colorClass="white-btn menu-button" onClick={() => route("instructions")}>INFO</Button>
+            <Button colorClass="white-btn menu-button">CREDITS</Button>
         </div>
     );
 }

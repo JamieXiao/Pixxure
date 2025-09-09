@@ -22,6 +22,13 @@ h1 {
     text-align: center;
 }
 
+p {
+    font-family: 'Jersey 10', sans-serif;
+    color: #5A8096; 
+    font-size: xx-large;
+    padding-inline: 8%;
+}
+
 .nes-container.is-rounded {
     background-color: white;
     height: 85vh;
@@ -56,7 +63,7 @@ h1 {
     border-color: #5A8096;
 }
 
-.menu-button {
+.menu-btn {
     width: 30vw;
     max-width: 250px;
 }
@@ -70,3 +77,15 @@ h1 {
 #how-to-play {
     font-size: 6em;
 }
+
+.side-btns {
+    width: 100%;
+    padding-inline: 5%;
+}
+
+.instructions-btn {
+    width: 40%;
+    max-width: 200px;
+    float: right;
+}
+
