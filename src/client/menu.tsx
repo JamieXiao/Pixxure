@@ -14,14 +14,15 @@ type Props = {
 export const Menu: React.FC<Props> = ({ route }) => {
     return (
         <div className="nes-container is-rounded is-skinny">
-            <h1>Pixxure</h1>
+            <h1>PIXXURE</h1>
         
-            <RedisTestBtn />
+            {/* <RedisTestBtn /> */}
             <img src="/hearts.png" alt="hearts" id="menu-hearts"></img>
             {/* <Link to="/game">
                 <Button colorClass="blue-btn menu-button">Play</Button>
             </Link> */}
-            <Button colorClass="blue-btn menu-button" onClick={() => route("game")}>PLAY</Button>
+            <Button colorClass="blue-btn menu-button blue-btn-animate" onClick={() => route("game")}>PLAY</Button>
+            {/* <div style={{ padding: "5%" }}></div> */}
             {/* <Link to="/instructions">
                 <Button colorClass="white-btn menu-button">Info</Button>
             </Link> */}

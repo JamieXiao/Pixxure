@@ -20,9 +20,9 @@ export const Instructions: React.FC<Props> = ({ route }) => {
                 <p>3. Good luck!</p>
             </div>
             <div className="side-btns">
-                <Link to="/">
-                    <Button colorClass="blue-btn instructions-btn">BACK</Button>
-                </Link>
+                {/* <Link to="/"> */}
+                <Button colorClass="blue-btn instructions-btn" onClick={() => route("menu")}>BACK</Button>
+                {/* </Link> */}
             </div>
         </div>
     );
