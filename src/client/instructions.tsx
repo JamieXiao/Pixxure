@@ -4,8 +4,8 @@ import "./index.css";
 
 export const Instructions = () => {
     return (
-        <div>
-            Hello, world!
+        <div className="nes-container is-rounded is-wide">
+            <h1 id="how-to-play">HOW TO PLAY</h1>
         </div>
     );
 }
