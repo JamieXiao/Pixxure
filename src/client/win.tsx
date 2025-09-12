@@ -17,7 +17,7 @@ export const Win: React.FC<Props> = ({ route }) => {
     // onClick={() => setHeart(heart - 1)}
 
     const enterStats = async () => {
-        setHeart(4);
+        // setHeart(4);
         // note, always call the play endpoint first since it runs the data init
         try {
             const response = await fetch('/api/play', { method: 'POST' });

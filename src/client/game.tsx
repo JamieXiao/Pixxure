@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import type { Page } from "./App";
 import { Button, Card, Input } from 'pixel-retroui'
+import { useHeart } from "./components/heartContext";
 
+    // onClick={() => setHeart(heart - 1)}
 // import "./index.css";
 
 
@@ -14,13 +16,24 @@ type Props = {
 }
 
 export const Game: React.FC<Props> = ({ route }) => {
+    const { heart, setHeart } = useHeart();
+    console.log("Current hearts:", heart);
     
     const updateHearts = async () => {                                
         // document.getElementById('game-hearts-img').src='heartRight2.png';
         const img = document.getElementById("game-hearts-img");
 
+        // if not correct word, decrease hearts by 1 (initialized to 5)
+        if (heart > 0) setHeart(heart - 1);
+
         if (img instanceof HTMLImageElement) {
-            img.src = "heartRight2.png";
+            if (heart == 5) {
+                img.src = 'hearts.png';
+            } else if (heart == 0) {
+                img.src = 'heart0.png';
+            } else {
+                img.src = `heartRight${heart}.png`;
+            }
         }
     }
 
@@ -36,7 +49,7 @@ export const Game: React.FC<Props> = ({ route }) => {
                     borderColor="#0"
                     placeholder="Enter your guess here!"
                 /> 
-                <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="game-btn" onChange={(e) => updateHearts()}>SUBMIT</Button>
+                <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="game-btn" onClick={() => updateHearts()}>SUBMIT</Button>
             </div>
         </Card>
     );
