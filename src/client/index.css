@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'pixel-retroui/dist/index.css';
 
 body {
     background-image: url('./public/background.png');
@@ -54,24 +55,16 @@ p {
 
 .nes-btn {
     font-family: 'Jersey 10', sans-serif;
-    font-size: 3em;
-}
-
-.nes-btn.blue-btn {
-    color: white;
-    background-color: #5A8096;
-    box-shadow: aqua;
-}
-
-.nes-btn.white-btn {
-    color: #5A8096;
-    background-color: white;
-    border-color: #5A8096;
+    font-size: 2em;
 }
 
 .menu-btn {
+    font-family: 'Jersey 10', sans-serif;
     width: 30vw;
-    max-width: 250px;
+    min-width: 150px;
+    font-size: 2.2em;
+    margin: 1rem auto !important;
+    padding: 0.5rem auto !important;
 }
 
 #menu-hearts {
@@ -139,18 +132,6 @@ p {
         font-size: 3em;
     }
 
-    .nes-btn.blue-btn {
-        color: white;
-        background-color: #5A8096;
-        box-shadow: aqua;
-    }
-
-    .nes-btn.white-btn {
-        color: #5A8096;
-        background-color: white;
-        border-color: #5A8096;
-    }
-
     .menu-btn {
         width: 30vw;
         max-width: 250px;
@@ -178,10 +159,31 @@ p {
     }
 }
 
-.blue-btn-animate {
+.nes-btn.blue-btn {
+    color: white;
+    background-color: #5A8096;
+    box-shadow: aqua;
     transition: transform 0.1s;
 }
-.blue-btn-animate:hover {
+
+.nes-btn.blue-btn:hover {
     background-color: #476678 !important;
+    color: rgb(229, 227, 227) !important;
 }
+
+.nes-btn.white-btn {
+    color: #5A8096;
+    background-color: white;
+    border-color: #5A8096;
+    transition: transform 0.1s;
+}
+
+.nes-btn.white-btn:hover {
+    color: #476678 !important;
+}
+
+/* .blue-btn-animate {
+}
+.blue-btn-animate:hover {
+} */
 
