@@ -96,7 +96,40 @@ p {
 } */
 
 /* ----------FULL SCREEN VIEW---------- */
-@media (min-width: 1200px) {
+.pix-image {
+    background-color: #5A8096;
+    width: 80%;
+    height: 50%;
+}
+
+.game-bottom {
+    width: 100%;
+    padding: 4%;
+    padding-inline: 10%;
+    font-family: 'Jersey 10', sans-serif !important;
+}
+
+#game-hearts-img {
+    width: 45%;
+    padding-bottom: 3%;
+}
+
+.guess-box {
+    width: 100%;
+    font-family: 'Jersey 10', sans-serif !important;
+    font-size: 1.5em;
+}
+
+.game-btn {
+    font-family: 'Jersey 10', sans-serif;
+    float: right;
+    font-size: 2em;
+    padding: 1%;
+
+    margin-top: 3%;
+}
+
+/* @media (min-width: 1200px) {
     h1 {
         font-family: 'Jersey 10', sans-serif;
         color: white; 
@@ -216,7 +249,7 @@ p {
 
 .nes-btn.white-btn:hover {
     color: #476678 !important;
-}
+} */
 
 /* .blue-btn-animate {
 }
