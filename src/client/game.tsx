@@ -20,26 +20,30 @@ export const Game: React.FC<Props> = ({ route }) => {
     console.log("Current hearts:", heart);
     
     const updateHearts = async () => {                                
-        // document.getElementById('game-hearts-img').src='heartRight2.png';
-        const img = document.getElementById("game-hearts-img");
+        const img = document.getElementById("game-hearts-img") as HTMLImageElement;
 
         // if not correct word, decrease hearts by 1 (initialized to 5)
-        if (heart > 0) setHeart(heart - 1);
+        let newHeart: number = heart;
+
+        if (heart > 0) {
+            newHeart = heart - 1;
+            setHeart(newHeart);
+        } 
 
         if (img instanceof HTMLImageElement) {
-            if (heart == 5) {
+            if (newHeart == 5) {
                 img.src = 'hearts.png';
-            } else if (heart == 0) {
+            } else if (newHeart == 0) {
                 img.src = 'heart0.png';
             } else {
-                img.src = `heartRight${heart}.png`;
+                img.src = `heartLeft${newHeart}.png`;
             }
         }
     }
 
     return (
         <Card className="container is-rounded is-wide">
-            <div className="pix-image"></div>
+            <Card className="container is-rounded pix-image" bg='#5A8096' shadowColor="#385261ff">IMAGE :D</Card>
             <div className="game-bottom">
                 <img src="hearts.png" alt="hearts" id="game-hearts-img"/>
                 <Input
