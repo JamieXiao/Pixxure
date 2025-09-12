@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { RedisTestBtn } from "./components/redisTestBtn";
 import { Link } from "react-router-dom";
-// import { Button } from "./Button";
-import "nes.css/css/nes.min.css";
 import type { Page } from "./App";
 import { Button, Card } from 'pixel-retroui'
 
@@ -14,7 +12,7 @@ type Props = {
 
 export const Menu: React.FC<Props> = ({ route }) => {
     return (
-        <Card className="container is-rounded is-skinny">
+        <Card className="container is-skinny">
             <h1>PIXXURE</h1>
         
             {/* <RedisTestBtn /> */}
@@ -22,14 +20,14 @@ export const Menu: React.FC<Props> = ({ route }) => {
             {/* <Link to="/game">
                 <Button colorClass="blue-btn menu-button">Play</Button>
             </Link> */}
-            <Button bg="#5A8096" textColor="white" borderColor="black" shadow="white" className="menu-btn" onClick={() => route("game")}>PLAY</Button>
+            <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="menu-btn" onClick={() => route("game")}>PLAY</Button>
             {/* <Button colorClass="blue-btn menu-btn blue-btn-animate" onClick={() => route("game")}>PLAY</Button> */}
             {/* <div style={{ padding: "5%" }}></div> */}
             {/* <Link to="/instructions">
                 <Button colorClass="white-btn menu-button">Info</Button>
             </Link> */}
             <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("instructions")}>INFO</Button>
-            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn">CREDITS</Button>
+            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("win")}>CREDITS</Button>
             {/* <Button colorClass="white-btn menu-btn" onClick={() => route("instructions")}>INFO</Button>
             <Button colorClass="white-btn menu-btn">CREDITS</Button> */}
         </Card>
