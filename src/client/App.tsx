@@ -9,6 +9,7 @@ import { Instructions } from "./instructions";
 import { Game } from "./game";
 import { Win } from "./win";
 import { Lose } from "./lose";
+import { HeartProvider } from "./components/heartContext";
 
 export type Page = "menu" | "instructions" | "game" | "win" | "lose";
 
@@ -31,9 +32,11 @@ export const App = () => {
   }
 //   const { count, username, loading, increment, decrement } = useCounter();
   return (
-    <div>
+    <HeartProvider>
+      <div>
         {renderPage()}
-    </div>
+      </div>
+    </HeartProvider>
     // <Router>
     //     <Routes>
     //         <Route path="/" element={<Menu/>}/>

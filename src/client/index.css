@@ -21,10 +21,11 @@ h1 {
     color: white; 
     -webkit-text-stroke: 0.1px black; 
     letter-spacing: -2px;
-    font-size: 4.4em;
+    font-size: 4.5em;
     text-align: center;
     text-shadow: 3px 3px black;
     font-weight: bolder;
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.3));
 }
 
 p {
@@ -36,17 +37,19 @@ p {
 
 .container {
     /* background-color: white; */
-    height: 85vh;
+    height: 78vh;
     display: flex;
     align-items: center;  
     flex-direction: column;
-    padding-top: 3rem;
+    padding-top: 2.5rem;
 }
 
 .is-skinny {
-    width: 70vw;
-    min-width: 300px;
-    height: 80vh;
+    /* width: 70vw; */
+    min-width: 250px;
+    /* height: 75vh; */
+    aspect-ratio: 0.64/1;
+    /* margin-right: 1rem; */
 }
 
 .is-wide {
@@ -54,26 +57,21 @@ p {
     max-width: 900px;
 }
 
-.nes-btn {
-    font-family: 'Jersey 10', sans-serif;
-    font-size: 2em;
-}
-
 .menu-btn {
     font-family: 'Jersey 10', sans-serif;
-    width: 25vw;
-    min-width: 150px;
-    font-size: 2.5em;
+    width: 45%;
+    min-width: 100px;
+    font-size: 2.3em;
     margin: 1rem auto !important;
     /* padding: 1.5rem auto auto 1.5rem !important; */
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
-    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.3));
 }
 
 #menu-hearts {
     /* margin-top: -12%; */
-    padding-top: 0.6rem;
+    padding-top: 0.8rem;
     padding-bottom: 7%;
     width: 70%;
 }
@@ -94,9 +92,8 @@ p {
 }
 
 /* ----------DESKTOP VIEW---------- */
-@media (min-width: 768px) {
-    
-}
+/* @media (min-width: 400px) {
+} */
 
 /* ----------FULL SCREEN VIEW---------- */
 @media (min-width: 1200px) {
