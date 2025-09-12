@@ -78,17 +78,27 @@ p {
 
 #how-to-play {
     font-size: 6em;
+    padding: 5%;
+    padding-bottom: 7%;
 }
 
-.side-btns {
+.instructions-text p {
+    padding-inline: 15%;
+    font-size: 2.5em;
+    padding-bottom: 5%;
+}
+
+.instructions-btn-container {
     width: 100%;
-    padding-inline: 5%;
+    padding-inline: 10%;
 }
 
 .instructions-btn {
-    width: 40%;
-    max-width: 200px;
     float: right;
+    font-family: 'Jersey 10', sans-serif;
+    font-size: 2.5em;
+    padding: 1.5%;
+    padding-inline: 3.5%;
 }
 
 /* ----------DESKTOP VIEW---------- */
