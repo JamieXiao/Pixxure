@@ -31,27 +31,30 @@ export const Game: React.FC<Props> = ({ route }) => {
         } 
 
         if (img instanceof HTMLImageElement) {
-            if (newHeart == 5) {
-                img.src = 'hearts.png';
-            } else if (newHeart == 0) {
-                img.src = 'heart0.png';
-            } else {
-                img.src = `heartLeft${newHeart}.png`;
-            }
+            img.src = `heartLeft${newHeart}.png`;
         }
+
+        // clear input field
+        clearInput();
+    }
+
+    const clearInput = async () => {
+        const inputVal = document.getElementById("input-field") as HTMLInputElement;
+        inputVal.value = '';
     }
 
     return (
         <Card className="container is-rounded is-wide">
             <Card className="container is-rounded pix-image" bg='#5A8096' shadowColor="#385261ff">IMAGE :D</Card>
             <div className="game-bottom">
-                <img src="hearts.png" alt="hearts" id="game-hearts-img"/>
+                <img src="heartLeft5.png" alt="hearts" id="game-hearts-img"/>
                 <Input
                     className="guess-box"
                     bg="#FFE3CF"
                     textColor="#24475B"
                     borderColor="#0"
                     placeholder="Enter your guess here!"
+                    id = "input-field"
                 /> 
                 <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="game-btn" onClick={() => updateHearts()}>SUBMIT</Button>
             </div>
