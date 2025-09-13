@@ -18,7 +18,7 @@ export const Instructions: React.FC<Props> = ({ route }) => {
                 <p>3. Good luck!</p>
             </div>
             <div className="instructions-btn-container">
-                <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="instructions-btn" onClick={() => route("menu")}>BACK</Button>
+                <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="back-btn" onClick={() => route("menu")}>BACK</Button>
             </div>
         </Card>
     );
