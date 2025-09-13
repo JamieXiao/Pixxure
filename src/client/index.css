@@ -19,13 +19,30 @@ div#root {
 h1 {
     font-family: 'Jersey 10', sans-serif;
     color: white; 
-    -webkit-text-stroke: 0.1px black; 
-    letter-spacing: -2px;
-    font-size: 4.5em;
+    /* -webkit-text-stroke: 0.000001px black;  */
+    /* letter-spacing: -2px; */
+    /* font-size: 4.5em; */
+    font-size: 445%;
     text-align: center;
-    text-shadow: 3px 3px black;
-    font-weight: bolder;
+    /* text-shadow: 3px 3px black; */
+    /* font-weight: bold; */
+    text-shadow:
+        -3px -3px black,
+        3px -3px black,
+        -3px  3px black,
+        3px  3px black,
+        5px 5px black;
     filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.3));
+}
+
+h2 {
+    font-family: 'Jersey 10', sans-serif;
+    color: black; 
+    font-size: 200%;
+    text-align: left;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    margin-top: 0;
 }
 
 p {
@@ -33,6 +50,40 @@ p {
     color: #5A8096; 
     font-size: 1em;
     padding-inline: 8%;
+}
+
+.stat-int {
+    font-family: 'Jersey 10', sans-serif;
+    color: #ffffff; 
+    font-size: 240%;
+    /* -webkit-text-stroke: 0.001px #3E9D90;  */
+    /* font-weight: normal; */
+    display: inline-block;
+    text-align: center;
+    /* letter-spacing: -2px; */
+    text-shadow:
+        -3px -3px 0 #3E9D90,
+        3px -3px 0 #3E9D90,
+        -3px  3px 0 #3E9D90,
+        3px  3px 0 #3E9D90;
+}
+
+.stat-title {
+    font-family: 'Jersey 10', sans-serif;
+    color: #3E9D90; 
+    font-size: 140%;
+    text-align: center;
+    line-height: 0.6;
+    margin-top: 5%;
+}
+
+.end-mssg {
+    font-family: 'Jersey 10', sans-serif;
+    color: #000000; 
+    font-size: 120%;
+    text-align: center;
+    line-height: 0.7;
+    margin-top: 5%;
 }
 
 .container {
@@ -61,7 +112,8 @@ p {
     font-family: 'Jersey 10', sans-serif;
     width: 45%;
     min-width: 100px;
-    font-size: 2.3em;
+    /* font-size: 2.3em; */
+    font-size: 230%;
     margin: 1rem auto !important;
     /* padding: 1.5rem auto auto 1.5rem !important; */
     padding-top: 0.5rem !important;
@@ -71,9 +123,23 @@ p {
 
 #menu-hearts {
     /* margin-top: -12%; */
-    padding-top: 0.8rem;
+    padding-top: 8%;
     padding-bottom: 7%;
     width: 70%;
+}
+
+#end-hearts {
+    /* margin-top: -12%; */
+    padding-top: 8%;
+    /* padding-bottom: 7%; */
+    width: 70%;
+}
+
+#stat-hearts {
+    /* margin-top: -12%; */
+    /* padding-top: 8%; */
+    /* padding-bottom: 7%; */
+    width: 100%;
 }
 
 #how-to-play {

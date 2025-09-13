@@ -19,6 +19,6 @@ export const HeartProvider = ({ children }: { children: ReactNode }) => {
 
 export const useHeart = () => {
   const context = useContext(heartContext);
-  if (!context) throw new Error("useInteger must be used within IntegerProvider");
+  if (!context) throw new Error("useHeart must be used within HeartProvider");
   return context;
 };
