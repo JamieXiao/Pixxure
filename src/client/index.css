@@ -129,6 +129,10 @@ p {
     font-size: 1.5em;
 }
 
+.guess-box input {
+    font-family: 'Jersey 10', sans-serif !important;
+}
+
 .game-btn {
     font-family: 'Jersey 10', sans-serif;
     float: right;
