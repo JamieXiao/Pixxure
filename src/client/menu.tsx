@@ -15,7 +15,7 @@ export const Menu: React.FC<Props> = ({ route }) => {
             <img src="/hearts.png" alt="hearts" id="menu-hearts"></img>
             <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="menu-btn" onClick={() => route("game")}>PLAY</Button>
             <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("instructions")}>INFO</Button>
-            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("lose")}>CREDITS</Button>
+            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("credits")}>CREDITS</Button>
 
         </Card>
     );

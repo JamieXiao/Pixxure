@@ -9,9 +9,10 @@ import { Instructions } from "./instructions";
 import { Game } from "./game";
 import { Win } from "./win";
 import { Lose } from "./lose";
+import { Credits } from "./credits";
 import { HeartProvider } from "./components/heartContext";
 
-export type Page = "menu" | "instructions" | "game" | "win" | "lose";
+export type Page = "menu" | "instructions" | "game" | "win" | "lose" | "credits";
 
 export const App = () => {
   const [page, setPage] = useState<Page>("menu");
@@ -28,6 +29,8 @@ export const App = () => {
         return <Win route={setPage} />;
       case "lose":
         return <Lose route={setPage} />;
+      case "credits":
+        return <Credits route={setPage} />;
     }
   }
 //   const { count, username, loading, increment, decrement } = useCounter();
