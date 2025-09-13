@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Link } from "react-router-dom";
 import type { Page } from "./App";
 import { ProgressBar, Card } from 'pixel-retroui';
 import { useHeart } from "./components/heartContext";

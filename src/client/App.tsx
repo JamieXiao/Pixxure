@@ -1,7 +1,6 @@
 // import { navigateTo } from '@devvit/web/client';
 // import { useCounter } from './hooks/useCounter';
 
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 
 import { Menu } from "./menu";
@@ -40,14 +39,5 @@ export const App = () => {
         {renderPage()}
       </div>
     </HeartProvider>
-    // <Router>
-    //     <Routes>
-    //         <Route path="/" element={<Menu/>}/>
-    //         <Route path="/instructions" element={<Instructions/>}/>
-    //         <Route path="/game" element={<Game/>}/>
-    //         <Route path="/win" element={<Win/>}/>
-    //         <Route path="/lose" element={<Lose/>}/>
-    //     </Routes>
-    // </Router>
   );
 };

@@ -8,9 +8,6 @@ import { useHeart } from "./components/heartContext";
 // import "./index.css";
 
 
-
-
-
 type Props = {
     route: (page: Page) => void;
 }
