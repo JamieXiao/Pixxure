@@ -68,6 +68,22 @@ p {
         3px  3px 0 #3E9D90;
 }
 
+.stat-int-lose {
+    font-family: 'Jersey 10', sans-serif;
+    color: #ffffff; 
+    font-size: 240%;
+    /* -webkit-text-stroke: 0.001px #3E9D90;  */
+    /* font-weight: normal; */
+    display: inline-block;
+    text-align: center;
+    /* letter-spacing: -2px; */
+    text-shadow:
+        -3px -3px 0 #9D413E,
+        3px -3px 0 #9D413E,
+        -3px  3px 0 #9D413E,
+        3px  3px 0 #9D413E;
+}
+
 .stat-title {
     font-family: 'Jersey 10', sans-serif;
     color: #3E9D90; 
