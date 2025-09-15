@@ -54,25 +54,12 @@ export const App = () => {
   // }
 
   const checkPlayed = async () => {
-    console.log("Checking if played today...");
+    console.log("Fetching stats...");
     try {
       const response = await fetch('/api/stats', { method: 'GET' });
       const data = await response.json();
       if (data.status === 'success') {
         setStats(data.stats);  
-        console.log('Stats fetched:', data.stats); 
-        const lastDate = new Date(data.stats.lastPlayed);
-        const currentDate = new Date();
-        const diffTime = currentDate.getTime() - lastDate.getTime();
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        console.log("diffDays: ", diffDays);
-        if (diffDays < 1) {
-          if (data.stats.hearts > 0){
-            setPage("winNoPlay");
-          } else {
-            setPage("loseNoPlay");
-          }
-        }
       } else {
           console.error('Error fetching stats:', data.message);
       }
@@ -88,7 +75,7 @@ export const App = () => {
   const renderPage = () => {
     switch (page) {
       case "menu":
-        return <Menu route={setPage} />;
+        return <Menu route={setPage} stats={stats} />;
       case "instructions":
         return <Instructions route={setPage} />;
       case "game":
