@@ -4,6 +4,7 @@ import "./index.css";
 import type { Page } from "./App";
 import { ProgressBar, Card } from 'pixel-retroui';
 import { useHeart } from "./components/heartContext";
+import { Music } from "./components/music";
 
 type Props = {
     route: (page: Page) => void;
@@ -83,6 +84,7 @@ export const Win: React.FC<Props> = ({ route }) => {
 
     return (
         <Card className="container is-skinny">
+            <Music></Music>
             <h1>YOU WON</h1>
             <img src={`/heartLeft${heart}.png`} alt="final-hearts" id="end-hearts"></img>
             <div style={{ width: "100%", padding: "5%", justifyContent: "left" }}>

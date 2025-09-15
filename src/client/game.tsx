@@ -1,10 +1,11 @@
-import React from "react";
+// import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import type { Page } from "./App";
 import { Button, Card, Input } from 'pixel-retroui'
 import { useHeart } from "./components/heartContext";
+import { Music } from "./components/music";
 
-    // onClick={() => setHeart(heart - 1)}
+// onClick={() => setHeart(heart - 1)}
 // import "./index.css";
 
 
@@ -42,6 +43,7 @@ export const Game: React.FC<Props> = ({ route }) => {
 
     return (
         <Card className="container is-rounded is-wide">
+            <Music></Music>
             <Card className="container is-rounded pix-image" bg='#5A8096' shadowColor="#385261ff">IMAGE :D</Card>
             <div className="game-bottom">
                 <img src="heartLeft5.png" alt="hearts" id="game-hearts-img"/>
