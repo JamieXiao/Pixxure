@@ -14,6 +14,11 @@ type Props = {
 export const LoseNoPlay: React.FC<Props> = ({ route, stats  }) => {
     // const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string, hearts: number } | null>(null);
 
+
+    useEffect(() => {
+        document.body.style.backgroundImage = "url('/lose-background.png')";
+    }, []);
+
     return (
         <Card className="container is-skinny">
             <h1>BETTER LUCK NEXT TIME</h1>
