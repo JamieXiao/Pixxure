@@ -11,7 +11,7 @@ type Props = {
 
 export const Lose: React.FC<Props> = ({ route }) => {
     const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string } | null>(null);
-    const { heart, setHeart } = useHeart();
+    // const { heart, setHeart } = useHeart();
 
     useEffect(() => {
         document.body.style.backgroundImage = "url('/lose-background.png')";
@@ -21,17 +21,6 @@ export const Lose: React.FC<Props> = ({ route }) => {
         // note, always call the play endpoint first since it runs the data init
         try {
             const response = await fetch('/api/play', { method: 'POST' });
-            const data = await response.json();
-            if (data.status === 'success') {
-                setStats(data.stats);  
-            } else {
-                console.error('Error fetching stats:', data.message);
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-        }
-        try {
-            const response = await fetch('/api/win', { method: 'POST' });
             const data = await response.json();
             if (data.status === 'success') {
                 setStats(data.stats);  
@@ -63,19 +52,6 @@ export const Lose: React.FC<Props> = ({ route }) => {
         } catch (error) {
             console.error('Fetch error:', error);
         }
-        try {
-            const response = await fetch(`/api/win${heart}`, { method: 'POST' });
-            const data = await response.json();
-            if (data.status === 'success') {
-                setStats(data.stats);  
-                console.log('Stats fetched:', data.stats); 
-            } else {
-                console.error('Error fetching stats:', data.message);
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-        }
-
     };    
 
     useEffect(() => {
