@@ -1,7 +1,7 @@
 // import { navigateTo } from '@devvit/web/client';
 // import { useCounter } from './hooks/useCounter';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Menu } from "./menu";
 import { Instructions } from "./instructions";
@@ -10,11 +10,80 @@ import { Win } from "./win";
 import { Lose } from "./lose";
 import { Credits } from "./credits";
 import { HeartProvider } from "./components/heartContext";
+import { LoseNoPlay } from "./loseNoPlay";
+import { WinNoPlay } from "./winNoPlay";
 
-export type Page = "menu" | "instructions" | "game" | "win" | "lose" | "credits";
+export type Page = "menu" | "instructions" | "game" | "win" | "lose" | "credits" | "loseNoPlay" | "winNoPlay";
+
+export type Stats = {
+  wins: number;
+  plays: number;
+  win5: number;
+  win4: number;
+  win3: number;
+  win2: number;
+  win1: number;
+  streak: number;
+  maxStreak: number;
+  lastPlayed: string;
+  hearts: number;
+};
 
 export const App = () => {
   const [page, setPage] = useState<Page>("menu");
+  const [stats, setStats] = useState<Stats | null>(null);
+  
+  // const checkPlayed = async () => {
+  //   if (stats){
+
+  //     // const parsedStats = JSON.parse(stats.lastPlayed);
+  //     // const lastDate = new Date(parsedStats);
+  //     const lastDate = new Date(stats.lastPlayed);
+  //     const currentDate = new Date();
+  //     const diffTime = currentDate.getTime() - lastDate.getTime();
+  //     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  //     console.log("diffDays: ", diffDays);
+  //     if (diffDays < 1) {
+  //       if (stats.hearts > 0){
+  //         setPage("winNoPlay");
+  //       } else {
+  //         setPage("loseNoPlay");
+  //       }
+  //     }
+  //   }
+  // }
+
+  const checkPlayed = async () => {
+    console.log("Checking if played today...");
+    try {
+      const response = await fetch('/api/stats', { method: 'GET' });
+      const data = await response.json();
+      if (data.status === 'success') {
+        setStats(data.stats);  
+        console.log('Stats fetched:', data.stats); 
+        const lastDate = new Date(data.stats.lastPlayed);
+        const currentDate = new Date();
+        const diffTime = currentDate.getTime() - lastDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        console.log("diffDays: ", diffDays);
+        if (diffDays < 1) {
+          if (data.stats.hearts > 0){
+            setPage("winNoPlay");
+          } else {
+            setPage("loseNoPlay");
+          }
+        }
+      } else {
+          console.error('Error fetching stats:', data.message);
+      }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+  }
+
+  useEffect(() => {
+    checkPlayed();
+  }, []);
 
   const renderPage = () => {
     switch (page) {
@@ -30,6 +99,10 @@ export const App = () => {
         return <Lose route={setPage} />;
       case "credits":
         return <Credits route={setPage} />;
+      case "loseNoPlay":
+        return <LoseNoPlay route={setPage} stats={stats} />;
+      case "winNoPlay":
+        return <WinNoPlay route={setPage} stats={stats} />;
     }
   }
 //   const { count, username, loading, increment, decrement } = useCounter();

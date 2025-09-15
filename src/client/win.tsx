@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const Win: React.FC<Props> = ({ route }) => {
-    const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string } | null>(null);
+    const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string, hearts: number } | null>(null);
     const { heart, setHeart } = useHeart();
 
     // onClick={() => setHeart(heart - 1)}
@@ -69,6 +69,17 @@ export const Win: React.FC<Props> = ({ route }) => {
             if (data.status === 'success') {
                 setStats(data.stats);  
                 console.log('Stats fetched:', data.stats); 
+            } else {
+                console.error('Error fetching stats:', data.message);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+        try {
+            const response = await fetch('/api/hearts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hearts: {heart} })});
+            const data = await response.json();
+            if (data.status === 'success') {
+                setStats(data.stats);  
             } else {
                 console.error('Error fetching stats:', data.message);
             }
