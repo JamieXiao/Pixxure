@@ -124,6 +124,29 @@ router.post('/internal/menu/post-create', async (_req, res): Promise<void> => {
   }
 });
 
+app.get('/api/stats', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+    res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+});
+
 // win endpoint
 app.post('/api/win', async (req, res) => {
   const userId = context.userId; // get userID
@@ -148,7 +171,7 @@ app.post('/api/win', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // play endpoint
@@ -169,11 +192,11 @@ app.post('/api/play', async (req, res) => {
     parsedStats = JSON.parse(stats);
     parsedStats.plays = (parsedStats.plays || 0) + 1; // increment plays by 1
   } else {
-    parsedStats = { wins: 0, plays: 1, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: date };
+    parsedStats = { wins: 0, plays: 1, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: date, hearts: 5 };
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // win5 endpoint
@@ -200,7 +223,7 @@ app.post('/api/win5', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // win4 endpoint
@@ -227,7 +250,7 @@ app.post('/api/win4', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // win3 endpoint
@@ -254,7 +277,7 @@ app.post('/api/win3', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // win2 endpoint
@@ -308,7 +331,7 @@ app.post('/api/win1', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // streak endpoint
@@ -381,7 +404,44 @@ app.post('/api/maxStreak', async (req, res) => {
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Play recorded' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
+});
+
+
+// hearts endpoint
+app.post('/api/hearts', async (req, res) => {
+  const userId = context.userId; // get userID
+  if (!userId) {
+    res.status(400).json({
+      status: 'error',
+      message: 'userId is missing',
+    });
+    return;
+  }
+  const { hearts } = req.body;
+  if (typeof hearts !== 'number' || hearts < 0 || hearts > 5) {
+    res.status(400).json({
+      status: 'error',
+      message: 'hearts must be a number between 0 and 5',
+    });
+    return;
+  }
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  let parsedStats;
+
+  if (stats) {
+    parsedStats = JSON.parse(stats);
+
+    parsedStats.hearts = hearts; // set hearts to the provided value
+  } else {
+    res.status(400).json({
+      status: 'error',
+      message: 'user stats not found, please call /api/play first',
+    });
+  }
+  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
+
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
 // Use router middleware

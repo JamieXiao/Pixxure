@@ -159,15 +159,16 @@ p {
 }
 
 #how-to-play {
-    font-size: 6em;
+    font-size: 4em;
     padding: 5%;
     padding-bottom: 7%;
 }
 
 .instructions-text p {
     padding-inline: 15%;
-    font-size: 2.5em;
+    font-size: 1.5em;
     padding-bottom: 5%;
+    padding-top: 3%;
 }
 
 .instructions-btn-container {

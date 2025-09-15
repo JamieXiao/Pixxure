@@ -22,10 +22,15 @@ export const Game: React.FC<Props> = ({ route }) => {
         // if not correct word, decrease hearts by 1 (initialized to 5)
         let newHeart: number = heart;
 
-        if (heart > 0) {
+        if (heart > 1) {
             newHeart = heart - 1;
             setHeart(newHeart);
-        } 
+        } else {
+            newHeart = heart - 1;
+            setHeart(newHeart);
+            await new Promise(r => setTimeout(r, 500)); // wait 0.5s
+            route("lose");
+        }
 
         if (img instanceof HTMLImageElement) {
             img.src = `heartLeft${newHeart}.png`;
