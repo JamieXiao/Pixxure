@@ -52,6 +52,17 @@ p {
     padding-inline: 8%;
 }
 
+.music-container {
+    width: 100%;
+    padding-right: 5%;
+    margin-top: -5%;
+}
+
+.music-icon {
+    width: 10%;
+    float: right;
+}
+
 .stat-int {
     font-family: 'Jersey 10', sans-serif;
     color: #ffffff; 
@@ -189,12 +200,13 @@ p {
     padding-top: 10%;
     /* padding-bottom: 5%; */
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.8em;
     line-height: 0.5;
 }
 
 .credits-container h1 {
     padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .credits-container p {
@@ -204,12 +216,19 @@ p {
 .credits-btn-container {
     width: 100%;
     align-items: center;
+    padding-top: 5%;
+}
+
+#cats {
+    width: 60%;
+    margin: auto;
 }
 
 .credits-btn-container .back-btn {
     float: none !important;
     display: block;
     margin: 2% auto;
+    padding-inline: 8%;
 }
 
 #music-credits {

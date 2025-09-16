@@ -5,6 +5,8 @@ import type { Page } from "./App";
 import { Button, Card } from 'pixel-retroui';
 import { Stats } from "./App";
 
+import { Music } from "./components/music";
+
 type Props = {
     route: (page: Page) => void;
     stats: Stats | null;
@@ -36,6 +38,7 @@ export const Menu: React.FC<Props> = ({ route, stats }) => {
 
     return (
         <Card className="container is-skinny">
+            <Music></Music>
             <h1>PIXXURE</h1>
             <img src="/hearts.png" alt="hearts" id="menu-hearts"></img>
             <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="menu-btn" onClick={() => hasPlayedToday()}>PLAY</Button>

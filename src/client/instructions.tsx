@@ -2,6 +2,7 @@ import React from "react";
 import "./index.css";
 import type { Page } from "./App";
 import { Button, Card } from 'pixel-retroui'
+import { Music } from "./components/music";
 
 type Props = {
     route: (page: Page) => void;
@@ -11,6 +12,7 @@ type Props = {
 export const Instructions: React.FC<Props> = ({ route }) => {
     return (
         <Card className="container is-rounded is-wide">
+            <Music></Music>
             <h1 id="how-to-play">HOW TO PLAY</h1>
             <div className="instructions-text">
                 <p>1. Guess the object in the pixelated image in the fewest tries possible (hint: the answer's only 1 word)</p>
