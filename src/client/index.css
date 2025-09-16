@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'pixel-retroui/dist/index.css';
 
 body {
     background-image: url('./public/background.png');
@@ -18,12 +19,30 @@ div#root {
 h1 {
     font-family: 'Jersey 10', sans-serif;
     color: white; 
-    -webkit-text-stroke: 0.1px black; 
-    letter-spacing: -2px;
-    font-size: 4.2em;
+    /* -webkit-text-stroke: 0.000001px black;  */
+    /* letter-spacing: -2px; */
+    /* font-size: 4.5em; */
+    font-size: 445%;
     text-align: center;
-    text-shadow: 3px 3px black;
-    font-weight: bolder;
+    /* text-shadow: 3px 3px black; */
+    /* font-weight: bold; */
+    text-shadow:
+        -3px -3px black,
+        3px -3px black,
+        -3px  3px black,
+        3px  3px black,
+        5px 5px black;
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.3));
+}
+
+h2 {
+    font-family: 'Jersey 10', sans-serif;
+    color: black; 
+    font-size: 200%;
+    text-align: left;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    margin-top: 0;
 }
 
 p {
@@ -33,18 +52,82 @@ p {
     padding-inline: 8%;
 }
 
-.nes-container.is-rounded {
-    background-color: white;
-    height: 85vh;
+.music-container {
+    width: 100%;
+    padding-right: 5%;
+    margin-top: -5%;
+}
+
+.music-icon {
+    width: 10%;
+    float: right;
+}
+
+.stat-int {
+    font-family: 'Jersey 10', sans-serif;
+    color: #ffffff; 
+    font-size: 240%;
+    /* -webkit-text-stroke: 0.001px #3E9D90;  */
+    /* font-weight: normal; */
+    display: inline-block;
+    text-align: center;
+    /* letter-spacing: -2px; */
+    text-shadow:
+        -3px -3px 0 #3E9D90,
+        3px -3px 0 #3E9D90,
+        -3px  3px 0 #3E9D90,
+        3px  3px 0 #3E9D90;
+}
+
+.stat-int-lose {
+    font-family: 'Jersey 10', sans-serif;
+    color: #ffffff; 
+    font-size: 240%;
+    /* -webkit-text-stroke: 0.001px #3E9D90;  */
+    /* font-weight: normal; */
+    display: inline-block;
+    text-align: center;
+    /* letter-spacing: -2px; */
+    text-shadow:
+        -3px -3px 0 #9D413E,
+        3px -3px 0 #9D413E,
+        -3px  3px 0 #9D413E,
+        3px  3px 0 #9D413E;
+}
+
+.stat-title {
+    font-family: 'Jersey 10', sans-serif;
+    color: #3E9D90; 
+    font-size: 140%;
+    text-align: center;
+    line-height: 0.6;
+    margin-top: 5%;
+}
+
+.end-mssg {
+    font-family: 'Jersey 10', sans-serif;
+    color: #000000; 
+    font-size: 120%;
+    text-align: center;
+    line-height: 0.7;
+    margin-top: 5%;
+}
+
+.container {
+    /* background-color: white; */
+    height: 78vh;
     display: flex;
     align-items: center;  
     flex-direction: column;
+    padding-top: 2.5rem;
 }
 
 .is-skinny {
-    width: 70vw;
-    min-width: 300px;
-    height: 80vh;
+    /* width: 70vw; */
+    min-width: 250px;
+    /* height: 75vh; */
+    aspect-ratio: 0.64/1;
+    /* margin-right: 1rem; */
 }
 
 .is-wide {
@@ -52,136 +135,141 @@ p {
     max-width: 900px;
 }
 
-.nes-btn {
-    font-family: 'Jersey 10', sans-serif;
-    font-size: 3em;
-}
-
-.nes-btn.blue-btn {
-    color: white;
-    background-color: #5A8096;
-    box-shadow: aqua;
-}
-
-.nes-btn.white-btn {
-    color: #5A8096;
-    background-color: white;
-    border-color: #5A8096;
-}
-
 .menu-btn {
-    width: 30vw;
-    max-width: 250px;
+    font-family: 'Jersey 10', sans-serif;
+    width: 45%;
+    min-width: 100px;
+    /* font-size: 2.3em; */
+    font-size: 230%;
+    margin: 1rem auto !important;
+    /* padding: 1.5rem auto auto 1.5rem !important; */
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.3));
 }
 
 #menu-hearts {
-    margin-top: -12%;
+    /* margin-top: -12%; */
+    padding-top: 8%;
     padding-bottom: 7%;
-    width: 80%;
+    width: 70%;
+}
+
+#end-hearts {
+    /* margin-top: -12%; */
+    padding-top: 8%;
+    /* padding-bottom: 7%; */
+    width: 70%;
+}
+
+#stat-hearts {
+    /* margin-top: -12%; */
+    /* padding-top: 8%; */
+    /* padding-bottom: 7%; */
+    width: 100%;
 }
 
 #how-to-play {
-    font-size: 6em;
+    font-size: 4em;
+    padding: 5%;
+    padding-bottom: 7%;
 }
 
-.side-btns {
+.instructions-text p {
+    padding-inline: 15%;
+    font-size: 1.5em;
+    padding-bottom: 5%;
+    padding-top: 3%;
+}
+
+.instructions-btn-container {
     width: 100%;
-    padding-inline: 5%;
+    padding-inline: 10%;
 }
 
-.instructions-btn {
-    width: 40%;
-    max-width: 200px;
+.back-btn {
     float: right;
+    font-family: 'Jersey 10', sans-serif;
+    font-size: 2.5em;
+    padding: 1.5%;
+    padding-inline: 3.5%;
 }
 
-/* ----------DESKTOP VIEW---------- */
-@media (min-width: 768px) {
-    
+.credits-text {
+    width: 100%;
+    padding-top: 10%;
+    /* padding-bottom: 5%; */
+    text-align: center;
+    font-size: 1.8em;
+    line-height: 0.5;
 }
 
-/* ----------FULL SCREEN VIEW---------- */
-@media (min-width: 1200px) {
-    h1 {
-        font-family: 'Jersey 10', sans-serif;
-        color: white; 
-        -webkit-text-stroke: 0.03em black; 
-        font-size: 9em;
-        text-align: center;
-    }
-
-    p {
-        font-family: 'Jersey 10', sans-serif;
-        color: #5A8096; 
-        font-size: xx-large;
-        padding-inline: 8%;
-    }
-
-    .nes-container.is-rounded {
-        background-color: white;
-        height: 85vh;
-        display: flex;
-        align-items: center;  
-        flex-direction: column;
-    }
-
-    .is-skinny {
-        aspect-ratio: 0.8/1;
-    }
-
-    .is-wide {
-        width: 85vw;
-        max-width: 900px;
-    }
-
-    .nes-btn {
-        font-family: 'Jersey 10', sans-serif;
-        font-size: 3em;
-    }
-
-    .nes-btn.blue-btn {
-        color: white;
-        background-color: #5A8096;
-        box-shadow: aqua;
-    }
-
-    .nes-btn.white-btn {
-        color: #5A8096;
-        background-color: white;
-        border-color: #5A8096;
-    }
-
-    .menu-btn {
-        width: 30vw;
-        max-width: 250px;
-    }
-
-    #menu-hearts {
-        margin-top: -12%;
-        padding-bottom: 7%;
-        width: 70%;
-    }
-
-    #how-to-play {
-        font-size: 6em;
-    }
-
-    .side-btns {
-        width: 100%;
-        padding-inline: 5%;
-    }
-
-    .instructions-btn {
-        width: 40%;
-        max-width: 200px;
-        float: right;
-    }
+.credits-container h1 {
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
-.blue-btn-animate {
-    transition: transform 0.1s;
+.credits-container p {
+    padding-bottom: 4%;
 }
-.blue-btn-animate:hover {
-    background-color: #476678 !important;
+
+.credits-btn-container {
+    width: 100%;
+    align-items: center;
+    padding-top: 5%;
 }
+
+#cats {
+    width: 60%;
+    margin: auto;
+}
+
+.credits-btn-container .back-btn {
+    float: none !important;
+    display: block;
+    margin: 2% auto;
+    padding-inline: 8%;
+}
+
+#music-credits {
+    font-size: 0.7em;
+    line-height: 0.7;
+}
+
+.pix-image {
+    width: 80%;
+    height: 50%;
+}
+
+.game-bottom {
+    width: 100%;
+    padding: 4%;
+    padding-inline: 10%;
+    font-family: 'Jersey 10', sans-serif !important;
+}
+
+#game-hearts-img {
+    width: 45%;
+    padding-bottom: 3%;
+}
+
+.guess-box {
+    width: 100%;
+    font-family: 'Jersey 10', sans-serif !important;
+    font-size: 1.5em;
+}
+
+.guess-box input {
+    font-family: 'Jersey 10', sans-serif !important;
+}
+
+.game-btn {
+    font-family: 'Jersey 10', sans-serif;
+    float: right;
+    font-size: 2em;
+    padding: 1%;
+
+    margin-top: 3%;
+}
+
 

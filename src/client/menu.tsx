@@ -1,33 +1,49 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RedisTestBtn } from "./components/redisTestBtn";
-import { Link } from "react-router-dom";
-import { Button } from "./Button";
-import "nes.css/css/nes.min.css";
 import type { Page } from "./App";
+import { Button, Card } from 'pixel-retroui';
+import { Stats } from "./App";
+
+import { Music } from "./components/music";
 
 type Props = {
     route: (page: Page) => void;
+    stats: Stats | null;
 }
 
-export const Menu: React.FC<Props> = ({ route }) => {
+export const Menu: React.FC<Props> = ({ route, stats }) => {
+
+    const hasPlayedToday = async () => {
+        console.log("Checking if played today...");
+        if (stats) {
+            console.log('Stats fetched:', stats); 
+            const lastDate = new Date(stats.lastPlayed);
+            const currentDate = new Date();
+            const diffTime = currentDate.getTime() - lastDate.getTime();
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            console.log("diffDays: ", diffDays);
+            if (diffDays < 1) {
+                if (stats.hearts > 0){
+                route("winNoPlay");
+                } else {
+                route("loseNoPlay");
+                }
+            } else {
+                route("game");
+            }
+        }
+                
+    }
+
     return (
-        <div className="nes-container is-rounded is-skinny">
+        <Card className="container is-skinny">
+            <Music></Music>
             <h1>PIXXURE</h1>
-        
-            {/* <RedisTestBtn /> */}
             <img src="/hearts.png" alt="hearts" id="menu-hearts"></img>
-            {/* <Link to="/game">
-                <Button colorClass="blue-btn menu-button">Play</Button>
-            </Link> */}
-            <Button colorClass="blue-btn menu-button blue-btn-animate" onClick={() => route("game")}>PLAY</Button>
-            {/* <div style={{ padding: "5%" }}></div> */}
-            {/* <Link to="/instructions">
-                <Button colorClass="white-btn menu-button">Info</Button>
-            </Link> */}
-            <Button colorClass="white-btn menu-button" onClick={() => route("instructions")}>INFO</Button>
-            <Button colorClass="white-btn menu-button">CREDITS</Button>
-        </div>
+            <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="menu-btn" onClick={() => hasPlayedToday()}>PLAY</Button>
+            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("instructions")}>INFO</Button>
+            <Button bg="white" textColor="#5A8096" borderColor="black" shadow="#5A8096" className="menu-btn" onClick={() => route("credits")}>CREDITS</Button>
+        </Card>
     );
 }

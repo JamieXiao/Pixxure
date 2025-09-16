@@ -1,9 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Link } from "react-router-dom";
-import { Button } from "./Button";
 import type { Page } from "./App";
+import { Button, Card } from 'pixel-retroui'
+import { Music } from "./components/music";
 
 type Props = {
     route: (page: Page) => void;
@@ -12,18 +11,17 @@ type Props = {
 
 export const Instructions: React.FC<Props> = ({ route }) => {
     return (
-        <div className="nes-container is-rounded is-wide">
+        <Card className="container is-rounded is-wide">
+            <Music></Music>
             <h1 id="how-to-play">HOW TO PLAY</h1>
-            <div id="instructions-text">
-                <p>1. Guess the object in the pixelated image in the fewest tries possible</p>
+            <div className="instructions-text">
+                <p>1. Guess the object in the pixelated image in the fewest tries possible (hint: the answer's only 1 word)</p>
                 <p>2. You have 5 tries - look at your hearts to see how many you have left!</p>
                 <p>3. Good luck!</p>
             </div>
-            <div className="side-btns">
-                {/* <Link to="/"> */}
-                <Button colorClass="blue-btn instructions-btn" onClick={() => route("menu")}>BACK</Button>
-                {/* </Link> */}
+            <div className="instructions-btn-container">
+                <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="back-btn" onClick={() => route("menu")}>BACK</Button>
             </div>
-        </div>
+        </Card>
     );
 }
