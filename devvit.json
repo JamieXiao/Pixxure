@@ -1,6 +1,11 @@
 {
   "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
   "name": "pixxure",
+
+  "permissions": {
+    "redis": true
+  },
+
   "post": {
     "dir": "dist/client",
     "entrypoints": {
@@ -9,11 +14,14 @@
       }
     }
   },
+
   "server": {
     "dir": "dist/server",
-    "entry": "index.cjs"
+    "entry": "main.cjs"
   },
+
   "media": {},
+
   "menu": {
     "items": [
       {
@@ -25,9 +33,41 @@
       }
     ]
   },
+
   "triggers": {
     "onAppInstall": "/internal/on-app-install"
   },
+
+  "jobs": {
+    "seed-daily-challenge": {
+      "cron": "0 0 * * *",
+      "endpoint": "/internal/jobs/seed-daily-challenge"
+    }
+  },
+
+
+  "settings": {
+    "global": {
+      "SUPABASE_URL": {
+        "type": "string",
+        "label": "Supabase Project URL",
+        "defaultValue": ""
+      },
+      "SUPABASE_ANON_KEY": {
+        "type": "string",
+        "label": "Supabase Anonymous Key",
+        "defaultValue": "",
+        "isSecret": true
+      },
+      "SUPABASE_SERVICE_ROLE": {
+        "type": "string",
+        "label": "Supabase Service Role Key",
+        "defaultValue": "",
+        "isSecret": true
+      }
+    }
+  },
+
   "dev": {
     "subreddit": "pixxure_dev"
   }
