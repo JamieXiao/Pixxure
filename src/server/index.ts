@@ -151,13 +151,11 @@ app.get('/api/stats', async (req, res) => {
 
   if (stats) {
     parsedStats = JSON.parse(stats);
-    res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
   } else {
-    res.status(400).json({
-      status: 'error',
-      message: 'user stats not found, please call /api/play first',
-    });
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    parsedStats = { wins: 0, plays: 0, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: yesterday, hearts: 5 };
   }
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
 });
 
 // win endpoint
