@@ -63,6 +63,12 @@ p {
     float: right;
 }
 
+.is-wide .music-icon {
+    width: 5%;
+    margin-top: 2%;
+    margin-bottom: -3%;
+}
+
 .stat-int {
     font-family: 'Jersey 10', sans-serif;
     color: #ffffff; 
@@ -178,7 +184,7 @@ p {
 .instructions-text p {
     padding-inline: 15%;
     font-size: 1.5em;
-    padding-bottom: 5%;
+    /* padding-bottom: 5%; */
     padding-top: 3%;
 }
 

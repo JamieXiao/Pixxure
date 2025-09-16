@@ -1,4 +1,4 @@
-import React, { useEffect, useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import type { Page } from "./App";
 import { Button, Card, Input } from 'pixel-retroui'

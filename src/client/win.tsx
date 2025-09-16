@@ -95,7 +95,6 @@ export const Win: React.FC<Props> = ({ route }) => {
 
     return (
         <Card className="container is-skinny">
-            <Music></Music>
             <h1>YOU WON</h1>
             <img src={`/heartLeft${heart}.png`} alt="final-hearts" id="end-hearts"></img>
             <div style={{ width: "100%", padding: "5%", justifyContent: "left" }}>
