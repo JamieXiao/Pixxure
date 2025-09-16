@@ -73,7 +73,6 @@ export const Lose: React.FC<Props> = ({ route }) => {
 
     return (
         <Card className="container is-skinny">
-            <Music></Music>
             <h1 className="how-to-play">BETTER LUCK NEXT TIME</h1>
             <img src={"/heart0.png"} alt="final-hearts" id="end-hearts"></img>
             <div style={{ width: "100%", padding: "5%", justifyContent: "left" }}>
