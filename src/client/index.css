@@ -64,9 +64,10 @@ p {
 }
 
 .is-wide .music-icon {
-    width: 5%;
+    width: 7%;
     margin-top: 2%;
     margin-bottom: -3%;
+    margin-right: -3%;
 }
 
 .stat-int {
@@ -242,7 +243,7 @@ p {
     line-height: 0.7;
 }
 
-.pix-image {
+.pix-img-container {
     width: 80%;
     height: 50%;
 }
