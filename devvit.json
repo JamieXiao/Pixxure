@@ -1,6 +1,6 @@
 {
   "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
-  "name": "pixxure-ctest",
+  "name": "pixxure",
 
   "permissions": {
     "redis": true
@@ -69,6 +69,6 @@
   },
 
   "dev": {
-    "subreddit": "pixxure_ctest_dev"
+    "subreddit": "pixxure_dev"
   }
 }
