@@ -137,7 +137,7 @@ router.post('/internal/menu/post-create', async (_req, res): Promise<void> => {
   }
 });
 
-app.get('/api/stats', async (req, res) => {
+app.post('/api/stats', async (_req, res) => {
   const userId = context.userId; // get userID
   if (!userId) {
     res.status(400).json({
@@ -148,14 +148,17 @@ app.get('/api/stats', async (req, res) => {
   }
   const stats = await redis.get(`stats:${userId}`); // get existing stats
   let parsedStats;
+  console.log("stats: b ", stats);
 
   if (stats) {
+    console.log("stats: a ", stats);
     parsedStats = JSON.parse(stats);
   } else {
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
     parsedStats = { wins: 0, plays: 0, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: yesterday, hearts: 5 };
+    console.log("stats: e ", parsedStats);
+    await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
   }
-  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
   res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
 });
 

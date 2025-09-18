@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import type { Page } from "./App";
@@ -13,6 +13,12 @@ type Props = {
 }
 
 export const Menu: React.FC<Props> = ({ route, stats }) => {
+
+    useEffect(() => {
+        if (stats) {
+        hasPlayedToday();
+        }
+    }, [stats]);
 
     const hasPlayedToday = async () => {
         console.log("Checking if played today...");
@@ -33,8 +39,7 @@ export const Menu: React.FC<Props> = ({ route, stats }) => {
                 route("game");
             }
             // route("game");
-        }
-                
+        }         
     }
 
     return (
