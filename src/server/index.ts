@@ -151,7 +151,7 @@ app.get('/api/stats', async (req, res) => {
   console.log("stats: b ", stats);
 
   if (stats) {
-    console.log("stats: existed");
+    console.log("stats: a ", stats);
     parsedStats = JSON.parse(stats);
   } else {
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];

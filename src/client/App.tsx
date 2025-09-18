@@ -54,7 +54,7 @@ export const App = () => {
   // }
 
   const checkPlayed = async () => {
-    console.log("Fetching stats...");
+    console.log("Fetching ");
     try {
       const response = await fetch('/api/stats', { method: 'GET' });
       const data = await response.json();
