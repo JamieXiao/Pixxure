@@ -29,6 +29,26 @@ export type Stats = {
   hearts: number;
 };
 
+
+// ================== CODE ADDED TO FIX CSP ERROR HOPEFULLY ==================
+const express = require('express')
+const helmet = require('helmet')
+
+const app = express()
+app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        "img-src": ["'self'", "https: data:"]
+      }
+    })
+  )
+// ================== CODE ADDED TO FIX CSP ERROR HOPEFULLY ==================
+
+
+
+
 export const App = () => {
   const [page, setPage] = useState<Page>("menu");
   const [stats, setStats] = useState<Stats | null>(null);
