@@ -14,12 +14,6 @@ type Props = {
 
 export const Menu: React.FC<Props> = ({ route, stats }) => {
 
-    useEffect(() => {
-        if (stats) {
-        hasPlayedToday();
-        }
-    }, [stats]);
-
     const hasPlayedToday = async () => {
         console.log("Checking if played today...");
         if (stats) {

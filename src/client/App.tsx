@@ -58,7 +58,7 @@ export const App = () => {
   const checkPlayed = async () => {
     console.log("Fetching stats...");
     try {
-      const response = await fetch('/api/stats', { method: 'POST' });
+      const response = await fetch('/api/play', { method: 'POST' });
       const data = await response.json();
       if (data.status === 'success') {
         setStats(data.stats);  
