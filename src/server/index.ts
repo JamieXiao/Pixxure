@@ -148,8 +148,10 @@ app.get('/api/stats', async (req, res) => {
   }
   const stats = await redis.get(`stats:${userId}`); // get existing stats
   let parsedStats;
+  console.log("stats: b ", stats);
 
   if (stats) {
+    console.log("stats: existed");
     parsedStats = JSON.parse(stats);
   } else {
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
