@@ -557,12 +557,13 @@ router.get('/internal/jobs/seed-daily-challenge', async (_req, res): Promise<voi
 
 // NEW: Redis-based image storage endpoints
 
+// === OLD API ENDPOINTS (COMMENTED OUT FOR REFERENCE) ===
 // // store an image in Redis (accepts PNG/JPEG file upload)
 // router.post('/api/store-image', upload.single('image'), async (req: Request, res): Promise<void> => {
 //   try {
 //     const { id, label, aliases, width, height } = req.body;
 //     const file = (req as any).file;
-    
+
 //     if (!id || !label || !file) {
 //       res.status(400).json({ error: 'Missing required fields: id, label, and image file' });
 //       return;
@@ -583,10 +584,10 @@ router.get('/internal/jobs/seed-daily-challenge', async (_req, res): Promise<voi
 
 //     await storeImageInRedis(imageData);
 //     console.log(`Stored image ${id} for label "${label}" (${file.originalname}, ${file.size} bytes)`);
-    
-//     res.json({ 
-//       status: 'success', 
-//       message: `Image stored for label "${label}"`, 
+
+//     res.json({
+//       status: 'success',
+//       message: `Image stored for label "${label}"`,
 //       id,
 //       filename: file.originalname,
 //       size: file.size,
@@ -598,19 +599,49 @@ router.get('/internal/jobs/seed-daily-challenge', async (_req, res): Promise<voi
 //   }
 // });
 
+// === NEW BASE64 API ENDPOINTS ===
+// Note: Base64 image storage is handled by base64ImagesHandler mounted on app
+// This eliminates duplicate functionality and keeps the cleaner implementation
 
-// use the robust daily.ts system for daily image selection
+
+// === OLD DAILY ENDPOINT (COMMENTED OUT FOR REFERENCE) ===
+// // use the robust daily.ts system for daily image selection
+// router.get('/api/daily', async (_req, res): Promise<void> => {
+//   try {
+//     const { dateUTC, image } = await getDailyImage();
+//     res.json({
+//       status: 'success',
+//       dateUTC,
+//       image: {
+//         id: image.id,
+//         name: image.name,
+//         imageUrl: image.imageUrl,
+//         thumbUrl: image.thumbUrl,
+//         width: image.width,
+//         height: image.height
+//       }
+//     });
+//   } catch (error: any) {
+//     console.error('Daily image error:', error);
+//     const msg = error?.message ?? 'Internal error';
+//     const code = msg.includes('No images seeded') ? 404 : 500;
+//     res.status(code).json({ error: msg });
+//   }
+// });
+
+// === NEW BASE64 DAILY ENDPOINT ===
+// returns daily image with base64 data for display in game.tsx
 router.get('/api/daily', async (_req, res): Promise<void> => {
   try {
     const { dateUTC, image } = await getDailyImage();
-    res.json({ 
-      status: 'success', 
-      dateUTC, 
+    res.json({
+      status: 'success',
+      dateUTC,
       image: {
         id: image.id,
         name: image.name,
-        imageUrl: image.imageUrl,
-        thumbUrl: image.thumbUrl,
+        imageBase64: image.imageUrl, // return base64 data as imageBase64
+        thumbBase64: image.thumbUrl,
         width: image.width,
         height: image.height
       }
@@ -642,19 +673,43 @@ router.post('/api/guess', async (req, res): Promise<void> => {
   }
 });
 
-// get today's challenge endpoint - uses daily.ts system
+// === OLD CHALLENGE ENDPOINT (COMMENTED OUT FOR REFERENCE) ===
+// // get today's challenge endpoint - uses daily.ts system
+// router.get('/api/challenge', async (_req, res): Promise<void> => {
+//   try {
+//     const { dateUTC, image } = await getDailyImage();
+//
+//     // don't expose the answer labels to the client
+//     res.json({
+//       dateUTC,
+//       image: {
+//         id: image.id,
+//         name: image.name,
+//         imageUrl: image.imageUrl,
+//         thumbUrl: image.thumbUrl,
+//         width: image.width,
+//         height: image.height
+//       }
+//     });
+//   } catch (e: any) {
+//     res.status(500).json({ error: `Server error: ${e?.message ?? 'unknown'}` });
+//   }
+// });
+
+// === NEW BASE64 CHALLENGE ENDPOINT ===
+// returns challenge image with base64 data for display in game.tsx (without answer labels)
 router.get('/api/challenge', async (_req, res): Promise<void> => {
   try {
     const { dateUTC, image } = await getDailyImage();
-    
+
     // don't expose the answer labels to the client
     res.json({
       dateUTC,
       image: {
         id: image.id,
         name: image.name,
-        imageUrl: image.imageUrl,
-        thumbUrl: image.thumbUrl,
+        imageBase64: image.imageUrl, // return base64 data as imageBase64
+        thumbBase64: image.thumbUrl,
         width: image.width,
         height: image.height
       }
@@ -884,12 +939,75 @@ router.get('/api/test-basic', (_req, res) => {
     version: '0.0.20',
   });
 });
-router.post('/api/images', imagesHandler);
+// router.post('/api/images', imagesHandler); // Removed - using base64ImagesHandler instead
 router.get('/api/daily', dailyHandler);
 
-// --- also mount on app directly (safety net if a different router is mounted)
-app.post('/api/images', imagesHandler);
-app.get('/api/daily', dailyHandler);
+// === OLD APP-MOUNTED ENDPOINTS (COMMENTED OUT FOR REFERENCE) ===
+// // also mount on app directly (safety net if a different router is mounted)
+// app.post('/api/images', imagesHandler);
+// app.get('/api/daily', dailyHandler);
+
+// === NEW BASE64 APP-MOUNTED ENDPOINTS ===
+// base64-compatible handlers for app mounting
+const base64ImagesHandler = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const { id, name, labels, imageBase64, thumbBase64, width, height } = req.body ?? {};
+    if (!name || !Array.isArray(labels) || !imageBase64) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Body must be { name: string, labels: string[], imageBase64: string, thumbBase64?, width?, height? }',
+      });
+    }
+    if (!imageBase64.startsWith('data:image/')) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'imageBase64 must be a valid data URL (data:image/...;base64,...)'
+      });
+    }
+    const imageData: any = {
+      id,
+      name,
+      labels,
+      imageUrl: imageBase64, // store base64 as imageUrl
+    };
+
+    if (thumbBase64) imageData.thumbUrl = thumbBase64;
+    if (width) imageData.width = parseInt(width);
+    if (height) imageData.height = parseInt(height);
+
+    const out = await addImage(imageData);
+    return res.status(201).json({ status: 'ok', id: out.id });
+  } catch (e: any) {
+    console.error('POST /api/images (base64):', e);
+    return res
+      .status(500)
+      .json({ status: 'error', message: e?.message ?? 'Internal error' });
+  }
+};
+
+const base64DailyHandler = async (_req: Request, res: Response) => {
+  try {
+    const { dateUTC, image } = await getDailyImage();
+    return res.json({
+      status: 'ok',
+      dateUTC,
+      daily: {
+        ...image,
+        imageBase64: image.imageUrl, // return base64 data as imageBase64
+        thumbBase64: image.thumbUrl,
+      }
+    });
+  } catch (e: any) {
+    console.error('GET /api/daily (base64):', e);
+    const msg = e?.message ?? 'Internal error';
+    const code = msg.includes('No images seeded') ? 404 : 500;
+    return res.status(code).json({ status: 'error', message: msg });
+  }
+};
+
+// mount base64 handlers on app
+app.post('/api/images', base64ImagesHandler);
+app.get('/api/daily', base64DailyHandler);
 
 // mount guess and challenge endpoints on app too
 app.post('/api/guess', async (req, res): Promise<void> => {
@@ -909,18 +1027,41 @@ app.post('/api/guess', async (req, res): Promise<void> => {
   }
 });
 
+// === OLD APP-MOUNTED CHALLENGE ENDPOINT (COMMENTED OUT FOR REFERENCE) ===
+// app.get('/api/challenge', async (_req, res): Promise<void> => {
+//   try {
+//     const { dateUTC, image } = await getDailyImage();
+//
+//     // don't expose the answer labels to the client
+//     res.json({
+//       dateUTC,
+//       image: {
+//         id: image.id,
+//         name: image.name,
+//         imageUrl: image.imageUrl,
+//         thumbUrl: image.thumbUrl,
+//         width: image.width,
+//         height: image.height
+//       }
+//     });
+//   } catch (e: any) {
+//     res.status(500).json({ error: `Server error: ${e?.message ?? 'unknown'}` });
+//   }
+// });
+
+// === NEW BASE64 APP-MOUNTED CHALLENGE ENDPOINT ===
 app.get('/api/challenge', async (_req, res): Promise<void> => {
   try {
     const { dateUTC, image } = await getDailyImage();
-    
+
     // don't expose the answer labels to the client
     res.json({
       dateUTC,
       image: {
         id: image.id,
         name: image.name,
-        imageUrl: image.imageUrl,
-        thumbUrl: image.thumbUrl,
+        imageBase64: image.imageUrl, // return base64 data as imageBase64
+        thumbBase64: image.thumbUrl,
         width: image.width,
         height: image.height
       }
