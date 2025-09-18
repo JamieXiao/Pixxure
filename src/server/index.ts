@@ -137,7 +137,7 @@ router.post('/internal/menu/post-create', async (_req, res): Promise<void> => {
   }
 });
 
-app.get('/api/stats', async (req, res) => {
+app.post('/api/stats', async (_req, res) => {
   const userId = context.userId; // get userID
   if (!userId) {
     res.status(400).json({
