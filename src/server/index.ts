@@ -154,8 +154,8 @@ app.get('/api/stats', async (req, res) => {
   } else {
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
     parsedStats = { wins: 0, plays: 0, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: yesterday, hearts: 5 };
+    await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
   }
-  await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
   res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
 });
 
