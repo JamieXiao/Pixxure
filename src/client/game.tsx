@@ -196,6 +196,8 @@ export const Game: React.FC<Props> = ({ route }) => {
         if (gradeResult.correct) {
             setResult(`🎉 Correct! "${guess}" matches "${testLabel}" (${gradeResult.reason} match)`);
             if (!imageRevealed) setImageRevealed(true);
+            setTimeout(() => route("win"), 1500); // wait 1.5s then go to win page
+
         } else {
             updateHearts();
             setResult(`❌ Not quite. "${guess}" doesn't match "${testLabel}"`);

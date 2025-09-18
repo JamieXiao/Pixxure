@@ -32,6 +32,7 @@ export const Menu: React.FC<Props> = ({ route, stats }) => {
             } else {
                 route("game");
             }
+            // route("game");
         }
                 
     }
