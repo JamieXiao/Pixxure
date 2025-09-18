@@ -907,34 +907,34 @@ app.get('/api/challenge', async (_req, res): Promise<void> => {
 
 // old base64 handler removed - now using URL-based storage
 
-// --- routes debugger on BOTH router and app
-const routesDebugger = (_req: Request, res: Response) => {
-  // @ts-ignore access internal stacks
-  const collect = (stack: any[]) =>
-    (stack || [])
-      .flatMap((layer: any) => {
-        if (layer.route?.path) {
-          const methods = Object.keys(layer.route.methods)
-            .join(',')
-            .toUpperCase();
-          return [`${methods} ${layer.route.path}`];
-        }
-        if (layer.handle?.stack) return collect(layer.handle.stack);
-        return [];
-      });
+// // --- routes debugger on BOTH router and app
+// const routesDebugger = (_req: Request, res: Response) => {
+//   // @ts-ignore access internal stacks
+//   const collect = (stack: any[]) =>
+//     (stack || [])
+//       .flatMap((layer: any) => {
+//         if (layer.route?.path) {
+//           const methods = Object.keys(layer.route.methods)
+//             .join(',')
+//             .toUpperCase();
+//           return [`${methods} ${layer.route.path}`];
+//         }
+//         if (layer.handle?.stack) return collect(layer.handle.stack);
+//         return [];
+//       });
 
-  // @ts-ignore
-  const appRoutes = collect((app as any)._router?.stack);
-  // @ts-ignore
-  const routerRoutes = collect((router as any).stack);
+//   // @ts-ignore
+//   const appRoutes = collect((app as any)._router?.stack);
+//   // @ts-ignore
+//   const routerRoutes = collect((router as any).stack);
 
-  console.log('[routes] app:', appRoutes);
-  console.log('[routes] router:', routerRoutes);
+//   console.log('[routes] app:', appRoutes);
+//   console.log('[routes] router:', routerRoutes);
 
-  res.json({ appRoutes, routerRoutes });
-};
-router.get('/api/_debug/routes', routesDebugger);
-app.get('/api/_debug/routes', routesDebugger);
+//   res.json({ appRoutes, routerRoutes });
+// };
+// router.get('/api/_debug/routes', routesDebugger);
+// app.get('/api/_debug/routes', routesDebugger);
 
 // --- mount the router then start Devvit server ONCE
 app.use(router);
