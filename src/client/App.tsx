@@ -1,7 +1,7 @@
 // import { navigateTo } from '@devvit/web/client';
 // import { useCounter } from './hooks/useCounter';
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { Menu } from "./menu";
 import { Instructions } from "./instructions";
@@ -35,26 +35,6 @@ export type Stats = {
 export const App = () => {
   const [page, setPage] = useState<Page>("menu");
   const [stats, setStats] = useState<Stats | null>(null);
-  
-  // const checkPlayed = async () => {
-  //   if (stats){
-
-  //     // const parsedStats = JSON.parse(stats.lastPlayed);
-  //     // const lastDate = new Date(parsedStats);
-  //     const lastDate = new Date(stats.lastPlayed);
-  //     const currentDate = new Date();
-  //     const diffTime = currentDate.getTime() - lastDate.getTime();
-  //     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  //     console.log("diffDays: ", diffDays);
-  //     if (diffDays < 1) {
-  //       if (stats.hearts > 0){
-  //         setPage("winNoPlay");
-  //       } else {
-  //         setPage("loseNoPlay");
-  //       }
-  //     }
-  //   }
-  // }
 
   const checkPlayed = async () => {
     console.log("Fetching stats...");
