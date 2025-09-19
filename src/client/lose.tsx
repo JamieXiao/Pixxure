@@ -20,30 +20,8 @@ export const Lose: React.FC<Props> = ({ route }) => {
 
     const enterStats = async () => {
         // note, always call the play endpoint first since it runs the data init
-        // try {
-        //     const response = await fetch('/api/play', { method: 'POST' });
-        //     const data = await response.json();
-        //     if (data.status === 'success') {
-        //         setStats(data.stats);  
-        //     } else {
-        //         console.error('Error fetching stats:', data.message);
-        //     }
-        // } catch (error) {
-        //     console.error('Fetch error:', error);
-        // }
         try {
-            const response = await fetch('/api/streak', { method: 'POST' });
-            const data = await response.json();
-            if (data.status === 'success') {
-                setStats(data.stats);  
-            } else {
-                console.error('Error fetching stats:', data.message);
-            }
-        } catch (error) {
-            console.error('Fetch error:', error);
-        }
-        try {
-            const response = await fetch('/api/maxStreak', { method: 'POST' });
+            const response = await fetch('/api/play', { method: 'POST' });
             const data = await response.json();
             if (data.status === 'success') {
                 setStats(data.stats);  

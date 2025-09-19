@@ -156,7 +156,7 @@ const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];  
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
 });
   // console.log("api hit")
   // const userId = context.userId; // get userID
@@ -209,6 +209,17 @@ app.post('/api/win', async (_req, res) => {
   res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 });
 
+app.post('/api/reset-stats', async (_req, res) => {
+  const userId = context.userId;
+  if (!userId) {
+    res.status(400).json({ status: 'error', message: 'userId missing' });
+    return;
+  }
+
+  await redis.del(`stats:${userId}`);
+  res.json({ status: 'success', message: 'Stats deleted' });
+});
+
 // play endpoint
 app.post('/api/play', async (_req, res) => {
   const userId = context.userId; // get userID
@@ -219,19 +230,20 @@ app.post('/api/play', async (_req, res) => {
     });
     return;
   }
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  // const date = new Date().toISOString().split('T')[0]; // get current date in YYYY-MM-DD format
+  // const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  const date = new Date().toISOString().split('T')[0]; // get current date in YYYY-MM-DD format
   const stats = await redis.get(`stats:${userId}`); // get existing stats
   let parsedStats;
 
   if (stats) {
     parsedStats = JSON.parse(stats);
+    parsedStats.plays = (parsedStats.plays || 0) + 1; // increment plays by 1
   } else {
-    parsedStats = { wins: 0, plays: 0, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: yesterday, hearts: 5 };
+    parsedStats = { wins: 0, plays: 1, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: date, hearts: 5 };
   }
   await redis.set(`stats:${userId}`, JSON.stringify(parsedStats)); // save back to redis
 
-  res.json({ status: 'success', stats: parsedStats, message: 'Stats retrieved' });
+  res.json({ status: 'success', stats: parsedStats, message: 'Stats updated' });
 
   // const userId = context.userId; // get userID
   // if (!userId) {
@@ -409,7 +421,6 @@ app.post('/api/streak', async (req, res) => {
     const currentDate = new Date();
     const diffTime = currentDate.getTime() - lastDate.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    // parsedStats.plays = (parsedStats.plays || 0) + 1; // increment plays by 1
 
     if (diffDays === 1) {
       // if last played was yesterday, increment streak
@@ -744,6 +755,7 @@ router.get('/api/challenge', async (_req, res): Promise<void> => {
 router.get('/api/image-proxy', async (req, res): Promise<void> => {
   try {
     const imageUrl = req.query.url as string;
+    // const imageUrl = "https://www.hawkmountain.org/data/uploads/media/image/barn-owl-by-Traci-Sepkovic.jpg?w=1024";
     if (!imageUrl) {
       res.status(400).json({ error: 'Missing url parameter' });
       return;
@@ -770,6 +782,7 @@ router.get('/api/image-proxy', async (req, res): Promise<void> => {
 app.get('/api/image-proxy', async (req, res): Promise<void> => {
   try {
     const imageUrl = req.query.url as string;
+    // const imageUrl = "https://www.hawkmountain.org/data/uploads/media/image/barn-owl-by-Traci-Sepkovic.jpg?w=1024";
     if (!imageUrl) {
       res.status(400).json({ error: 'Missing url parameter' });
       return;
