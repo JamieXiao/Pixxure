@@ -1,11 +1,13 @@
 import React, { useState, useEffect, FC } from 'react';
+import { useMusic } from './musicContext';
 
 // interface MusicProps {
 //     className?: string;
 // }
 
 export const Music: React.FC = ({}) => {
-    let playing = false;
+    const { playing, setPlaying } = useMusic();
+    // let playing = false;
 
     const updateAudio = async () => {
         let audio = document.getElementById("bg-music-audio") as HTMLAudioElement;
@@ -14,12 +16,12 @@ export const Music: React.FC = ({}) => {
         if (playing) {
             img.src = "mute.png";
             audio.pause();
-            playing = false;
+            setPlaying(false);
             
         } else {
             img.src = "unmute.png";
             audio.play();
-            playing = true;
+            setPlaying(true);
         }
     }
 
