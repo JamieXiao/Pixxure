@@ -19,17 +19,17 @@ export const Win: React.FC<Props> = ({ route }) => {
     const enterStats = async () => {
         // setHeart(4);
         // note, always call the play endpoint first since it runs the data init
-        // try {
-        //     const response = await fetch('/api/play', { method: 'POST' });
-        //     const data = await response.json();
-        //     if (data.status === 'success') {
-        //         setStats(data.stats);  
-        //     } else {
-        //         console.error('Error fetching stats:', data.message);
-        //     }
-        // } catch (error) {
-        //     console.error('Fetch error:', error);
-        // }
+        try {
+            const response = await fetch('/api/play', { method: 'POST' });
+            const data = await response.json();
+            if (data.status === 'success') {
+                setStats(data.stats);  
+            } else {
+                console.error('Error fetching stats:', data.message);
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
         try {
             const response = await fetch('/api/win', { method: 'POST' });
             const data = await response.json();

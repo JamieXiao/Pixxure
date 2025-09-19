@@ -31,8 +31,8 @@ export const Game: React.FC<Props> = ({ route }) => {
         } else {
             newHeart = heart - 1;
             setHeart(newHeart);
-            await new Promise(r => setTimeout(r, 500)); // wait 0.5s
-            route("lose");
+            // await new Promise(r => setTimeout(r, 500)); // wait 0.5s
+            // route("lose");
         }
 
         if (img instanceof HTMLImageElement) {
@@ -57,6 +57,7 @@ export const Game: React.FC<Props> = ({ route }) => {
     const [guess, setGuess] = useState<string>('');
     const [result, setResult] = useState<string>('');
     const [imageRevealed, setImageRevealed] = useState<boolean>(false);
+    const [imageBlur, setImageBlur] = useState<number>(10);
     const [loading, setLoading] = useState<boolean>(true);
 
     // grading algorithm (copied from server)
@@ -134,7 +135,8 @@ export const Game: React.FC<Props> = ({ route }) => {
             setTestAliases(data.image?.labels || []);
             
             // use image proxy to bypass CSP restrictions
-            const imageUrl = data.image?.imageUrl;
+            // const imageUrl = data.image?.imageUrl;
+             const imageUrl = "https://www.hawkmountain.org/data/uploads/media/image/barn-owl-by-Traci-Sepkovic.jpg?w=1024";
             if (imageUrl) {
                 const proxiedImageUrl = `./api/image-proxy?url=${encodeURIComponent(imageUrl)}`;
                 setTestImage(proxiedImageUrl);
@@ -197,9 +199,15 @@ export const Game: React.FC<Props> = ({ route }) => {
         if (gradeResult.correct) {
             setResult(`🎉 Correct! "${guess}" matches "${testLabel}" (${gradeResult.reason} match)`);
             if (!imageRevealed) setImageRevealed(true);
-            setTimeout(() => route("win"), 1500); // wait 1.5s then go to win page
+            setTimeout(() => route("win"), 2000); // wait 1.5s then go to win page
 
-        } else {
+        } else if (heart <= 1) {
+            updateHearts();
+            if (!imageRevealed) setImageRevealed(true);
+            setTimeout(() => route("lose"), 2000); // wait 1.5s then go to win page
+        }
+        else {
+            setImageBlur(Math.max(0, imageBlur - 2)); // decrease blur by 2px each wrong guess
             updateHearts();
             setResult(`❌ Not quite. "${guess}" doesn't match "${testLabel}"`);
         }
@@ -221,10 +229,15 @@ export const Game: React.FC<Props> = ({ route }) => {
         // maxWidth: '400px',
         // maxHeight: '300px',
         borderRadius: '8px',
+<<<<<<< HEAD
         filter: imageRevealed ? 'none' : 'blur(8px)',
         transition: 'filter 0.3s ease',
         margin: '-2%',
         height: '100%'
+=======
+        filter: imageRevealed ? 'none' : `blur(${imageBlur}px)`,
+        transition: 'filter 0.3s ease'
+>>>>>>> c7b8fb0c0385c560bff6ca845da0cb545249ad28
     };
 
     // // ============= END TEMPORARY TEST SECTION =============
