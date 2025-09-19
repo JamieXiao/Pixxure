@@ -4,7 +4,6 @@ import type { Page } from "./App";
 import { Button, Card, Input } from 'pixel-retroui'
 import { useHeart } from "./components/heartContext";
 import { Music } from "./components/music";
-
 import { useState } from "react";
 
 // onClick={() => setHeart(heart - 1)}
@@ -135,8 +134,7 @@ export const Game: React.FC<Props> = ({ route }) => {
             setTestAliases(data.image?.labels || []);
             
             // use image proxy to bypass CSP restrictions
-            // const imageUrl = data.image?.imageUrl;
-             const imageUrl = "https://www.hawkmountain.org/data/uploads/media/image/barn-owl-by-Traci-Sepkovic.jpg?w=1024";
+            const imageUrl = data.image?.imageUrl;
             if (imageUrl) {
                 const proxiedImageUrl = `./api/image-proxy?url=${encodeURIComponent(imageUrl)}`;
                 setTestImage(proxiedImageUrl);
@@ -150,38 +148,62 @@ export const Game: React.FC<Props> = ({ route }) => {
             console.error('Failed to load daily challenge:', error);
 
             // fallback to mock data if API fails
+            // const labels = {
+            //     car: ['automobile', 'vehicle', 'auto'],
+            //     cat: ['kitten', 'kitty', 'feline'],
+            //     dog: ['puppy', 'canine', 'hound'],
+            //     book: ['novel', 'literature'],
+            //     tree: ['oak', 'pine', 'maple']
+            // };
             const labels = {
-                car: ['automobile', 'vehicle', 'auto'],
-                cat: ['kitten', 'kitty', 'feline'],
-                dog: ['puppy', 'canine', 'hound'],
-                book: ['novel', 'literature'],
-                tree: ['oak', 'pine', 'maple']
+                dragonfly: ['damselfly', 'odonata'],
+                bee: ['bumblebee', 'honeybee', 'apis'],
+                butterfly: ['lepidoptera', 'siproeta stelenes'],
+                // cat: ['kitten', 'kitty', 'feline'],
+                // dog: ['puppy', 'canine', 'hound'],
+                // book: ['novel', 'literature'],
+                // tree: ['oak', 'pine', 'maple']
             };
+            const images: Record<string, string> = {
+                dragonfly: 'dragonfly.jpg',
+                bee: 'bee.jpg',
+                butterfly: 'butterfly.jpg',
+                // cat: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...", 
+                // dog: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...", 
+                // book: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...",
+                // tree: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA..." 
+            };
+
             
             const epochDays = Math.floor(new Date().getTime() / 86400000);
             const keys = Object.keys(labels);
-            const label = keys[epochDays % keys.length] || 'car';
+            const label = keys[epochDays % keys.length] || 'dragonfly';
             const aliases = labels[label as keyof typeof labels] || [];
             
             setTestLabel(label);
             setTestAliases(aliases);
+
             
-            // create a simple data URL image for testing (CSP compliant)
-            const canvas = document.createElement('canvas');
-            canvas.width = 400;
-            canvas.height = 300;
-            const ctx = canvas.getContext('2d');
-            if (ctx) {
-                ctx.fillStyle = '#4a90e2';
-                ctx.fillRect(0, 0, 400, 300);
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 32px Arial';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(label.toUpperCase(), 200, 150);
-            }
-            setTestImage(canvas.toDataURL());
+            const image = images[label] ?? images['dragonfly'] ?? '';
+            setTestImage(image);
+
             setLoading(false);
+            // create a simple data URL image for testing (CSP compliant)
+            // const canvas = document.createElement('canvas');
+            // canvas.width = 400;
+            // canvas.height = 300;
+            // const ctx = canvas.getContext('2d');
+            // if (ctx) {
+            //     ctx.fillStyle = '#4a90e2';
+            //     ctx.fillRect(0, 0, 400, 300);
+            //     ctx.fillStyle = '#ffffff';
+            //     ctx.font = 'bold 32px Arial';
+            //     ctx.textAlign = 'center';
+            //     ctx.textBaseline = 'middle';
+            //     ctx.fillText(label.toUpperCase(), 200, 150);
+            // }
+            // setTestImage(canvas.toDataURL());
+            // setLoading(false);
         } finally {
             // ensure loading is always set to false after a reasonable delay
             setTimeout(() => {
@@ -215,6 +237,12 @@ export const Game: React.FC<Props> = ({ route }) => {
     useEffect(() => {
         loadTestChallenge();
     }, []);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleGuess();
+        }
+    };
 
     const testSectionStyle: React.CSSProperties = {
         border: '3px dashed #ff6b6b',
@@ -272,6 +300,7 @@ export const Game: React.FC<Props> = ({ route }) => {
                     placeholder="Enter your guess here!"
                     id = "input-field"
                     onChange={(e) => setGuess(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 /> 
                 <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="game-btn" onClick={() => handleGuess()}>SUBMIT</Button>
             </div>

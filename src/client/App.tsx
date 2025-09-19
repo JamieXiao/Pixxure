@@ -10,6 +10,7 @@ import { Win } from "./win";
 import { Lose } from "./lose";
 import { Credits } from "./credits";
 import { HeartProvider } from "./components/heartContext";
+import { MusicProvider } from "./components/musicContext";
 import { LoseNoPlay } from "./loseNoPlay";
 import { WinNoPlay } from "./winNoPlay";
 
@@ -98,9 +99,11 @@ export const App = () => {
 //   const { count, username, loading, increment, decrement } = useCounter();
   return (
     <HeartProvider>
+    <MusicProvider>
       <div>
         {renderPage()}
       </div>
+    </MusicProvider>
     </HeartProvider>
   );
 };
