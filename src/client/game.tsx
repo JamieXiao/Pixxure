@@ -228,15 +228,8 @@ export const Game: React.FC<Props> = ({ route }) => {
         // maxWidth: '400px',
         // maxHeight: '300px',
         borderRadius: '8px',
-<<<<<<< HEAD
-        filter: imageRevealed ? 'none' : 'blur(8px)',
-        transition: 'filter 0.3s ease',
-        margin: '-2%',
-        height: '100%'
-=======
         filter: imageRevealed ? 'none' : `blur(${imageBlur}px)`,
         transition: 'filter 0.3s ease'
->>>>>>> c7b8fb0c0385c560bff6ca845da0cb545249ad28
     };
 
     // // ============= END TEMPORARY TEST SECTION =============
