@@ -1,35 +1,42 @@
-## Devvit React Starter
+## 💡 Inspiration 
+Our team has always loved daily puzzles, the kind that give your brain a quick challenge, spark curiosity, and keep you coming back for more. Whether it is crosswords, Wordle, or Sudoku, we were inspired by the idea of small, daily habits that grow into something bigger over time. With Pixxure, we wanted to create that same feeling: a fun, pixelated image puzzle where players return each day to think, guess, and watch their scores accumulate and grow.
 
-A starter to build web applications on Reddit's developer platform
+## 🖼️ What it does 
+Pixxure is a daily pixelated image challenge. Each day, a new image is pulled from a free open-source database, pixelated, and presented as the puzzle of the day. Players guess the image, earn points for correct answers, and see their scores accumulate over time. The design emphasizes both quick daily engagement and long-term satisfaction as scores grow.
 
-- [Devvit](https://developers.reddit.com/): A way to build and deploy immersive games on Reddit
-- [Vite](https://vite.dev/): For compiling the webView
-- [React](https://react.dev/): For UI
-- [Express](https://expressjs.com/): For backend logic
-- [Tailwind](https://tailwindcss.com/): For styles
-- [Typescript](https://www.typescriptlang.org/): For type safety
+## 🛠️ How we built it 
+- Devvit (Reddit’s developer framework) for game hosting and integration
+- React with TypeScript for the client, ensuring a smooth and responsive interface
+- Express with Redis for APIs, caching, and guess validation
+- Tailwind.css for efficient and effective styling
 
-## Getting Started
+Each day, the backend seeds a new challenge image, stores it in Redis, and ensures no repeats. The frontend fetches the challenge, renders it pixelated, and validates guesses through server APIs.
 
-> Make sure you have Node 22 downloaded on your machine before running!
+## ⚙️ Challenges we ran into 
+One of our biggest challenges was understanding the complexities of building a game that is not only functional but also enjoyable for users. Specific hurdles included:
+- Designing a database schema flexible enough for daily challenges without repeats
+- Debugging API routes within Devvit’s unique environment
+- Ensuring performance stayed smooth while managing caching, seeding, and scoring
 
-1. Run `npm create devvit@latest --template=react`
-2. Go through the installation wizard. You will need to create a Reddit account and connect it to Reddit developers
-3. Copy the command on the success page into your terminal
+## 🎉 Accomplishments that we're proud of 
+- Successfully building a full-stack daily puzzle game in a new environment (Devvit)
+- Creating a working pipeline for daily challenges that integrates APIs, databases, and caching
+- Designing a user experience that encourages both daily play and long-term engagement
+- Learning how to translate our love of puzzles into a product others can enjoy
 
-## Commands
+## 🧠 What we learned 
+- Building Pixxure taught us that even seemingly simple games require careful planning and execution. We learned about:
+- Game design principles and balancing difficulty with fun
+- Creating responsive frontend designs for puzzle interfaces
+- Backend architecture for daily seeding, guess validation, and caching
+- Practical integration of APIs and databases in a production-like setting
 
-- `npm run dev`: Starts a development server where you can develop your application live on Reddit.
-- `npm run build`: Builds your client and server projects
-- `npm run deploy`: Uploads a new version of your app
-- `npm run launch`: Publishes your app for review
-- `npm run login`: Logs your CLI into Reddit
-- `npm run check`: Type checks, lints, and prettifies your app
+## 💭 What's next for Pixxure 
+We want to expand Pixxure with features that make it even more engaging, such as:
+- Automate daily seeding process
+- Leaderboards to compare scores with friends and the community
+- Adjustable pixelation levels that reveal more detail as guesses progress
+- A streak system to reward consistent daily play
+- Broader image sets and categories to keep puzzles fresh
 
-## Cursor Integration
-
-This template comes with a pre-configured cursor environment. To get started, [download cursor](https://www.cursor.com/downloads) and enable the `devvit-mcp` when prompted.
-
-npm install -g devvit@latest
-
-Quick note: all the endpoints are in server/index.ts
+Ultimately, we hope to grow Pixxure into a daily ritual that players look forward to as part of their everyday routine.
