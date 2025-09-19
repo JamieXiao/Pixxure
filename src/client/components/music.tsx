@@ -1,4 +1,3 @@
-import React, { useState, useEffect, FC } from 'react';
 import { useMusic } from './musicContext';
 
 // interface MusicProps {

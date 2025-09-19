@@ -210,7 +210,9 @@ export const Game: React.FC<Props> = ({ route }) => {
     const imageStyle: React.CSSProperties = {
         borderRadius: '8px',
         filter: imageRevealed ? 'none' : `blur(${imageBlur}px)`,
-        transition: 'filter 0.3s ease'
+        transition: 'filter 0.3s ease',
+        margin: '-5%',
+        height: '100%'
     };
 
 
