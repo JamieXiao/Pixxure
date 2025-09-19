@@ -17,11 +17,14 @@ export const Menu: React.FC<Props> = ({ route, stats }) => {
     const hasPlayedToday = async () => {
         console.log("Checking if played today...");
         if (stats) {
-            console.log('Stats fetched:', stats); 
-            const lastDate = new Date(stats.lastPlayed);
-            const currentDate = new Date();
-            const diffTime = currentDate.getTime() - lastDate.getTime();
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            // console.log('Stats fetched:', stats); 
+            const currentDate = new Date().toISOString().split('T')[0]!;
+            const lastDate = stats.lastPlayed;
+            console.log("lastDate: ", lastDate);
+            console.log("currentDate: ", currentDate);
+            // const diffTime = currentDate.getTime() - lastDate.getTime();
+            // const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffDays = Math.floor((new Date(currentDate).getTime() - new Date(lastDate).getTime()) /(1000 * 60 * 60 * 24));
             console.log("diffDays: ", diffDays);
             if (diffDays < 1) {
                 if (stats.hearts > 0){

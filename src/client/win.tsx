@@ -68,7 +68,7 @@ export const Win: React.FC<Props> = ({ route }) => {
             const data = await response.json();
             if (data.status === 'success') {
                 setStats(data.stats);  
-                console.log('Stats fetched:', data.stats); 
+                // console.log('Stats fetched:', data.stats); 
             } else {
                 console.error('Error fetching stats:', data.message);
             }

@@ -19,6 +19,6 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
 
 export const useMusic = () => {
   const context = useContext(musicContext);
-  if (!context) throw new Error("useHeart must be used within HeartProvider");
+  if (!context) throw new Error("useMusic must be used within MusicProvider");
   return context;
 };

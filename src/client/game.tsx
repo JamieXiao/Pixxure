@@ -16,7 +16,7 @@ type Props = {
 
 export const Game: React.FC<Props> = ({ route }) => {
     const { heart, setHeart } = useHeart();
-    console.log("Current hearts:", heart);
+    // console.log("Current hearts:", heart);
     
     const updateHearts = async () => {                                
         const img = document.getElementById("game-hearts-img") as HTMLImageElement;
@@ -257,7 +257,9 @@ export const Game: React.FC<Props> = ({ route }) => {
         // maxHeight: '300px',
         borderRadius: '8px',
         filter: imageRevealed ? 'none' : `blur(${imageBlur}px)`,
-        transition: 'filter 0.3s ease'
+        transition: 'filter 0.3s ease',
+        margin: '-3%',
+        height: '100%'
     };
 
     // // ============= END TEMPORARY TEST SECTION =============

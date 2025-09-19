@@ -146,11 +146,13 @@ app.post('/api/stats', async (_req, res) => {
     });
     return;
   }
-const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];  const stats = await redis.get(`stats:${userId}`); // get existing stats
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];  
+  const stats = await redis.get(`stats:${userId}`); // get existing stats
   let parsedStats;
 
   if (stats) {
     parsedStats = JSON.parse(stats);
+    console.log("stats: a ", stats);
   } else {
     parsedStats = { wins: 0, plays: 0, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: yesterday, hearts: 5 };
   }
@@ -238,6 +240,7 @@ app.post('/api/play', async (_req, res) => {
   if (stats) {
     parsedStats = JSON.parse(stats);
     parsedStats.plays = (parsedStats.plays || 0) + 1; // increment plays by 1
+    parsedStats.lastPlayed = date; // update last played date
   } else {
     parsedStats = { wins: 0, plays: 1, win5: 0, win4: 0, win3: 0, win2: 0, win1: 0, streak: 0, maxStreak: 0, lastPlayed: date, hearts: 5 };
   }
