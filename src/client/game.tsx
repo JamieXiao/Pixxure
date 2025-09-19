@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom/client";
 import type { Page } from "./App";
 import { Button, Card, Input } from 'pixel-retroui'
 import { useHeart } from "./components/heartContext";
@@ -15,24 +14,25 @@ type Props = {
 }
 
 export const Game: React.FC<Props> = ({ route }) => {
+
+    const [testImage, setTestImage] = useState<string>('');
+    const [testLabel, setTestLabel] = useState<string>('');
+    const [testAliases, setTestAliases] = useState<string[]>([]);
+    const [guess, setGuess] = useState<string>('');
+    const [imageRevealed, setImageRevealed] = useState<boolean>(false);
+    const [imageBlur, setImageBlur] = useState<number>(10);
+    const [loading, setLoading] = useState<boolean>(true);
+
     const { heart, setHeart } = useHeart();
-    console.log("Current hearts:", heart);
+    // console.log("Current hearts:", heart);
     
     const updateHearts = async () => {                                
         const img = document.getElementById("game-hearts-img") as HTMLImageElement;
 
         // if not correct word, decrease hearts by 1 (initialized to 5)
         let newHeart: number = heart;
-
-        if (heart > 1) {
-            newHeart = heart - 1;
-            setHeart(newHeart);
-        } else {
-            newHeart = heart - 1;
-            setHeart(newHeart);
-            // await new Promise(r => setTimeout(r, 500)); // wait 0.5s
-            // route("lose");
-        }
+        newHeart = heart - 1;
+        setHeart(newHeart);
 
         if (img instanceof HTMLImageElement) {
             img.src = `heartLeft${newHeart}.png`;
@@ -48,18 +48,7 @@ export const Game: React.FC<Props> = ({ route }) => {
     }
 
 
-
-    // // ============= TEMPORARY TEST SECTION - DELETE LATER =============
-    const [testImage, setTestImage] = useState<string>('');
-    const [testLabel, setTestLabel] = useState<string>('');
-    const [testAliases, setTestAliases] = useState<string[]>([]);
-    const [guess, setGuess] = useState<string>('');
-    const [result, setResult] = useState<string>('');
-    const [imageRevealed, setImageRevealed] = useState<boolean>(false);
-    const [imageBlur, setImageBlur] = useState<number>(10);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    // grading algorithm (copied from server)
+    // grading algorithm 
     const normalize = (s: string): string => {
         return s.toLowerCase()
             .replace(/[^\w\s]/g, ' ')
@@ -147,14 +136,6 @@ export const Game: React.FC<Props> = ({ route }) => {
         } catch (error) {
             console.error('Failed to load daily challenge:', error);
 
-            // fallback to mock data if API fails
-            // const labels = {
-            //     car: ['automobile', 'vehicle', 'auto'],
-            //     cat: ['kitten', 'kitty', 'feline'],
-            //     dog: ['puppy', 'canine', 'hound'],
-            //     book: ['novel', 'literature'],
-            //     tree: ['oak', 'pine', 'maple']
-            // };
             const labels = {
                 dragonfly: ['damselfly', 'odonata'],
                 bee: ['bumblebee', 'honeybee', 'apis'],
@@ -174,7 +155,6 @@ export const Game: React.FC<Props> = ({ route }) => {
                 // tree: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA..." 
             };
 
-            
             const epochDays = Math.floor(new Date().getTime() / 86400000);
             const keys = Object.keys(labels);
             const label = keys[epochDays % keys.length] || 'dragonfly';
@@ -188,22 +168,7 @@ export const Game: React.FC<Props> = ({ route }) => {
             setTestImage(image);
 
             setLoading(false);
-            // create a simple data URL image for testing (CSP compliant)
-            // const canvas = document.createElement('canvas');
-            // canvas.width = 400;
-            // canvas.height = 300;
-            // const ctx = canvas.getContext('2d');
-            // if (ctx) {
-            //     ctx.fillStyle = '#4a90e2';
-            //     ctx.fillRect(0, 0, 400, 300);
-            //     ctx.fillStyle = '#ffffff';
-            //     ctx.font = 'bold 32px Arial';
-            //     ctx.textAlign = 'center';
-            //     ctx.textBaseline = 'middle';
-            //     ctx.fillText(label.toUpperCase(), 200, 150);
-            // }
-            // setTestImage(canvas.toDataURL());
-            // setLoading(false);
+
         } finally {
             // ensure loading is always set to false after a reasonable delay
             setTimeout(() => {
@@ -218,7 +183,6 @@ export const Game: React.FC<Props> = ({ route }) => {
         const gradeResult = gradeAnswer(guess, testLabel, testAliases);
         
         if (gradeResult.correct) {
-            setResult(`🎉 Correct! "${guess}" matches "${testLabel}" (${gradeResult.reason} match)`);
             if (!imageRevealed) setImageRevealed(true);
             setTimeout(() => route("win"), 2000); // wait 1.5s then go to win page
 
@@ -230,7 +194,6 @@ export const Game: React.FC<Props> = ({ route }) => {
         else {
             setImageBlur(Math.max(0, imageBlur - 2)); // decrease blur by 2px each wrong guess
             updateHearts();
-            setResult(`❌ Not quite. "${guess}" doesn't match "${testLabel}"`);
         }
     };
 
@@ -244,26 +207,11 @@ export const Game: React.FC<Props> = ({ route }) => {
         }
     };
 
-    const testSectionStyle: React.CSSProperties = {
-        border: '3px dashed #ff6b6b',
-        padding: '20px',
-        margin: '20px 0',
-        backgroundColor: '#fff5f5',
-        borderRadius: '10px'
-    };
-
     const imageStyle: React.CSSProperties = {
-        // maxWidth: '400px',
-        // maxHeight: '300px',
         borderRadius: '8px',
         filter: imageRevealed ? 'none' : `blur(${imageBlur}px)`,
         transition: 'filter 0.3s ease'
     };
-
-    // // ============= END TEMPORARY TEST SECTION =============
-
-
-
 
 
     return (
@@ -305,109 +253,5 @@ export const Game: React.FC<Props> = ({ route }) => {
                 <Button bg="#5A8096" textColor="white" borderColor="black" shadow="#385261ff" className="game-btn" onClick={() => handleGuess()}>SUBMIT</Button>
             </div>
         </Card>
-
-        // <div>
-        //     {/* ============= TEMPORARY TEST SECTION - DELETE LATER ============= */}
-            // <div style={testSectionStyle}>
-            //     <h2 style={{color: '#ff6b6b', margin: '0 0 20px 0'}}>🧪 ALGORITHM TEST (REMOVE LATER)</h2>
-                
-            //     <div style={{marginBottom: '20px'}}>
-            //         <strong>Today's Challenge:</strong> "{testLabel}" 
-            //         <br />
-            //         <small>Aliases: {testAliases.join(', ')}</small>
-            //     </div>
-                
-            //     <div style={{textAlign: 'center', margin: '20px 0'}}>
-            //         {loading ? (
-            //             <div>🔄 Loading image...</div>
-            //         ) : (
-            //             <img 
-            //                 src={testImage} 
-            //                 alt="Daily challenge" 
-            //                 style={imageStyle}
-            //                 onLoad={() => {
-            //                     console.log('Image loaded successfully:', testImage);
-            //                     setLoading(false);
-            //                 }}
-            //                 onError={(e) => {
-            //                     console.error('Image failed to load:', testImage);
-            //                     // fallback to a simple placeholder
-            //                     (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300/cccccc/666666?text=${encodeURIComponent(testLabel)}`;
-            //                     setLoading(false);
-            //                 }}
-            //             />
-            //         )}
-            //     </div>
-                
-            //     <div style={{textAlign: 'center', margin: '20px 0'}}>
-            //         <input 
-            //             type="text" 
-            //             value={guess}
-            //             onChange={(e) => setGuess(e.target.value)}
-            //             placeholder="What do you see?"
-            //             style={{
-            //                 padding: '10px',
-            //                 fontSize: '16px',
-            //                 border: '2px solid #ddd',
-            //                 borderRadius: '5px',
-            //                 marginRight: '10px',
-            //                 width: '200px'
-            //             }}
-            //             onKeyDown={(e) => e.key === 'Enter' && handleGuess()}
-            //             disabled={loading}
-            //         />
-            //         <button 
-            //             onClick={handleGuess}
-            //             disabled={loading}
-            //             style={{
-            //                 padding: '10px 20px',
-            //                 fontSize: '16px',
-            //                 backgroundColor: '#007bff',
-            //                 color: 'white',
-            //                 border: 'none',
-            //                 borderRadius: '5px',
-            //                 cursor: loading ? 'not-allowed' : 'pointer',
-            //                 marginRight: '10px'
-            //             }}
-            //         >
-            //             Submit Guess
-            //         </button>
-            //         <button 
-            //             onClick={() => setImageRevealed(true)}
-            //             disabled={loading || imageRevealed}
-            //             style={{
-            //                 padding: '10px 15px',
-            //                 backgroundColor: '#28a745',
-            //                 color: 'white',
-            //                 border: 'none',
-            //                 borderRadius: '5px',
-            //                 cursor: (loading || imageRevealed) ? 'not-allowed' : 'pointer'
-            //             }}
-            //         >
-            //             {imageRevealed ? 'Revealed' : 'Reveal'}
-            //         </button>
-            //     </div>
-                
-            //     {result && (
-            //         <div style={{
-            //             margin: '20px 0',
-            //             padding: '15px',
-            //             borderRadius: '5px',
-            //             fontWeight: 'bold',
-            //             textAlign: 'center',
-            //             backgroundColor: result.includes('🎉') ? '#d4edda' : '#f8d7da',
-            //             color: result.includes('🎉') ? '#155724' : '#721c24',
-            //             border: result.includes('🎉') ? '1px solid #c3e6cb' : '1px solid #f5c6cb'
-            //         }}>
-            //             {result}
-            //         </div>
-            //     )}
-            // </div>
-        //     {/* ============= END TEMPORARY TEST SECTION ============= */}
-            
-        //     <div>
-        //         Game component
-        //     </div>
-        // </div>
     );
 }

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
+import React, { useEffect } from "react";
 import "./index.css";
 import type { Page } from "./App";
 import { ProgressBar, Card } from 'pixel-retroui';
-import { useHeart } from "./components/heartContext";
 import { Stats } from "./App";
 
 type Props = {
@@ -11,9 +9,8 @@ type Props = {
     stats: Stats | null;
 }
 
-export const LoseNoPlay: React.FC<Props> = ({ route, stats  }) => {
+export const LoseNoPlay: React.FC<Props> = ({ stats  }) => {
     // const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string, hearts: number } | null>(null);
-
 
     useEffect(() => {
         document.body.style.backgroundImage = "url('/lose-background.png')";

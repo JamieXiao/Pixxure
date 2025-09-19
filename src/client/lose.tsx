@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 import "./index.css";
 import type { Page } from "./App";
 import { ProgressBar, Card } from 'pixel-retroui';
-import { useHeart } from "./components/heartContext";
-import { Music } from "./components/music";
+
 
 type Props = {
     route: (page: Page) => void;
 }
 
-export const Lose: React.FC<Props> = ({ route }) => {
+export const Lose: React.FC<Props> = ({  }) => {
     const [stats, setStats] = useState<{ wins: number, plays: number, win5: number, win4: number, win3: number, win2: number, win1: number, streak: number, maxStreak: number, lastPlayed: string, hearts: number } | null>(null);
     // const { heart, setHeart } = useHeart();
 
