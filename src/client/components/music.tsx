@@ -28,7 +28,7 @@ export const Music: React.FC = ({}) => {
     
     return (
         <div className = "music-container">
-            <audio loop id="bg-music-audio">
+            <audio autoPlay loop id="bg-music-audio">
                 <source src="music-jazz.mp3" type="audio/mpeg"></source>
                 Your browser does not support the audio element.
             </audio>
