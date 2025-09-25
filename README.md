@@ -40,3 +40,5 @@ We want to expand Pixxure with features that make it even more engaging, such as
 - Broader image sets and categories to keep puzzles fresh
 
 Ultimately, we hope to grow Pixxure into a daily ritual that players look forward to as part of their everyday routine.
+
+Play here: https://www.reddit.com/r/pixxure_dev/
